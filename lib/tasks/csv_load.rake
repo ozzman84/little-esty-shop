@@ -77,12 +77,3 @@ namespace :csv_load do
     end 
 end
 
-
-
-
-# rails csv_load:customers
-# rails csv_load:invoice_items
-# rails csv_load:invoices
-# rails csv_load:items
-# rails csv_load:merchants
-# rails csv_load:transactions

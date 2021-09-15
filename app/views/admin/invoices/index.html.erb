@@ -1,8 +1,13 @@
 <h1>All Invoices</h1>
 
 <h3><% @invoices.each do |invoice| %>
+<<<<<<< HEAD
   <div id="invoice_link-#<% invoice.id %>" >
       <li><%= link_to invoice.id, admin_invoice_path(invoice.id) %></li>
   <% end %>
   </div>
+=======
+    <li><%= link_to invoice.id, admin_invoice_path(invoice.id) %></li>
+  <% end %>
+>>>>>>> 715eeadf6c7308da374931f34f094ae670b373a6
 </h3>
