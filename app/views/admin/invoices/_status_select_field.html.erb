@@ -1,0 +1,16 @@
+<form>
+  <div class="form-group align-items-center">
+    <div class="col-auto my-1">
+      <h4><label class="mr-sm-2" for="inlineFormCustomSelect">Status:</label></h4>
+      <select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
+        <option selected>Choose...</option>
+        <option value="1">In Progress</option>
+        <option value="2">Cancelled</option>
+        <option value="3">Completed</option>
+      </select>
+    </div>
+    <div class="col-auto my-1">
+      <button type="submit" url="/admin/invoices/#{@invoice.id}" method="patch" class="btn btn-primary">Update</button>
+    </div>
+  </div>
+</form>
