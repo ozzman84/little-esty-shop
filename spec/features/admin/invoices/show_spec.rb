@@ -61,4 +61,12 @@ RSpec.describe "Admin Invoices Show Page" do
     end
   end
 
+
+  describe "Update Invoice Status" do
+    it "displays a select field for invoice status" do
+      visit "/admin/invoices/#{@invoice_1.id}"
+
+      expect(page).to have_content(@invoice_1.status)
+    end
+  end
 end
