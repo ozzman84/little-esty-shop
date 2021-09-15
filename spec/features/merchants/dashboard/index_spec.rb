@@ -6,22 +6,22 @@ RSpec.describe "Merchant Dashboard" do
   end
 
   it "displays the name of the merchant" do
-    visit "/merchants/#{@merch.id}/dashboard"
+    visit "/merchant/#{@merch.id}/dashboard"
 
     expect(page).to have_content(@merch.name)
   end
 
   it "displays links to merchant items and invoices indexes" do
-    visit "/merchants/#{@merch.id}/dashboard"
+    visit "/merchant/#{@merch.id}/dashboard"
 
     expect(page).to have_link("My Items")
     click_link "My Items"
-    expect(current_path).to eq("/merchants/#{@merch.id}/items")
+    expect(current_path).to eq("/merchant/#{@merch.id}/items")
 
-    visit "/merchants/#{@merch.id}/dashboard"
+    visit "/merchant/#{@merch.id}/dashboard"
 
     expect(page).to have_link("My Invoices")
     click_link "My Invoices"
-    expect(current_path).to eq("/merchants/#{@merch.id}/invoices")
+    expect(current_path).to eq("/merchant/#{@merch.id}/invoices")
   end
 end
