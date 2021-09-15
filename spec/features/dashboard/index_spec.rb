@@ -9,7 +9,7 @@ RSpec.describe "Merchant Dashboard" do
     @item4 = @merch.items.create!(name: "Barbie", description: "Gorgeous", unit_price: 2183, created_at: "2012-03-27 14:53:59 UTC", updated_at: "2012-03-27 14:53:59 UTC")
     @item5 = @merch.items.create!(name: "GI Joe", description: "Imperialism", unit_price: 743, created_at: "2012-03-27 14:53:59 UTC", updated_at: "2012-03-27 14:53:59 UTC")
     @cust1 = build(:customer)
-    
+
   end
 
   it "displays the name of the merchant" do
@@ -38,9 +38,5 @@ RSpec.describe "Merchant Dashboard" do
 
   it "gives invoice ids as links to invoice show pages" do
 
-  end
-
-  it "returns customer name" do
-    expect(@cust1.first_name).to eq("John")
   end
 end
