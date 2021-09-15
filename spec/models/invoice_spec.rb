@@ -45,4 +45,5 @@ RSpec.describe Invoice, type: :model do
     it "can gererate a total revenue" do
       expect(@invoice_1.total_revenue).to eq(3600/100)
     end
+  end  
 end
