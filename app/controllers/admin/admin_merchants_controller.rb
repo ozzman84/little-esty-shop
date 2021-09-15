@@ -1,4 +1,4 @@
-  class AdminMerchantsController < ApplicationController
+  class Admin::MerchantsController < ApplicationController
     def index
       @merchants = Merchant.all
     end
@@ -14,12 +14,12 @@
     def update
       merchant = Merchant.find(params[:merchant_id])
       if merchant.update(merch_params)
-         redirect_to "/admin/merchants/#{merchant.id}"
-         flash[:success] = 'Merchant Updated'
-       end
-         redirect_to "/admin/merchants/#{merchant.id}/edit"
-         flash[:danger] = 'Merchant Not Updated: re-enter information'
-       end 
+       redirect_to "/admin/merchants/#{merchant.id}"
+       flash[:success] = 'Merchant Updated'
+      else
+       redirect_to "/admin/merchants/#{merchant.id}/edit"
+       flash[:danger] = 'Merchant Not Updated: re-enter information'
+      end
     end
 
     def create
