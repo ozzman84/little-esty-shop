@@ -20,20 +20,20 @@ RSpec.describe "Admin Invoices Index Page" do
     it "displays a link of all invoice ids in the system" do
       visit "/admin/invoices"
 
-      expect(page).to have_link(@invoice_1.id)
-      expect(page).to have_link(@invoice_2.id)
-      expect(page).to have_link(@invoice_3.id)
-      expect(page).to have_link(@invoice_4.id)
-      expect(page).to have_link(@invoice_5.id)
-      expect(page).to have_link(@invoice_6.id)
-      expect(page).to have_link(@invoice_7.id)
-      expect(page).to have_link(@invoice_8.id)
+      expect(page).to have_link("Invoice #{@invoice_1.id}")
+      expect(page).to have_link("Invoice #{@invoice_2.id}")
+      expect(page).to have_link("Invoice #{@invoice_3.id}")
+      expect(page).to have_link("Invoice #{@invoice_4.id}")
+      expect(page).to have_link("Invoice #{@invoice_5.id}")
+      expect(page).to have_link("Invoice #{@invoice_6.id}")
+      expect(page).to have_link("Invoice #{@invoice_7.id}")
+      expect(page).to have_link("Invoice #{@invoice_8.id}")
     end
 
     it "can direct each id link to the admin invoice show page" do
       visit "/admin/invoices"
 
-      click_on @invoice_1.id
+      click_on "Invoice #{@invoice_1.id}"
 
       expect(current_path).to eq("/admin/invoices/#{@invoice_1.id}")
     end
@@ -41,13 +41,9 @@ RSpec.describe "Admin Invoices Index Page" do
     it "can direct each id link to the admin invoice show page" do
       visit "/admin/invoices"
 
-      click_on @invoice_2.id
+      click_on "Invoice #{@invoice_2.id}"
 
-        expect(current_path).to eq("/admin/invoices/#{@invoice_2.id}")
-
-      within("#invoice_link-#{@invoice_1.id}") do
-        expect(current_page).to eq("/admin/invoices/#{@invoice_1.id}")
-      end
+      expect(current_path).to eq("/admin/invoices/#{@invoice_2.id}")
     end
   end
 

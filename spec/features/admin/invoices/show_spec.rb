@@ -16,7 +16,7 @@ RSpec.describe "Admin Invoices Show Page" do
     @cecelia = Customer.create!(first_name: "Cecelia", last_name: "Osinski", created_at: "2012-03-27 14:54:10 UTC", updated_at: "2012-03-27 14:54:10 UTC")
     @mariah = Customer.create!(first_name: "Mariah", last_name: "Toy", created_at: "2012-03-27 14:54:10 UTC", updated_at: "2012-03-27 14:54:10 UTC")
 
-    @invoice_1 = @joey.invoices.create!(customer_id: 1, status: "cancelled", created_at: "2012-03-25 09:54:09 UTC", updated_at: "2012-03-25 09:54:09 UTC")
+    @invoice_1 = @joey.invoices.create!(customer_id: 1, status: "in progress", created_at: "2012-03-25 09:54:09 UTC", updated_at: "2012-03-25 09:54:09 UTC")
     @invoice_2 = @joey.invoices.create!(customer_id: 1, status: "in progress", created_at: "2012-03-12 05:54:09 UTC", updated_at: "2012-03-12 05:54:09 UTC")
     # @invoice_3 = @joey.invoices.create!(customer_id: 1, status: "cancelled", created_at: "2012-03-10 00:54:09 UTC", updated_at: "2012-03-25 09:54:09 UTC")
     # @invoice_4 = @joey.invoices.create!(customer_id: 1, status: "completed", created_at: "2012-03-24 15:54:10 UTC", updated_at: "2012-03-24 15:54:10 UTC")
@@ -37,8 +37,8 @@ RSpec.describe "Admin Invoices Show Page" do
     @dress = @forever_21.items.create!(name: "Dress", description: "Sun dress", unit_price: 2900, created_at: "2012-03-27 14:53:59 UTC", updated_at: "2012-03-27 14:53:59 UTC")
     @skirt = @forever_21.items.create!(name: "Skirt", description: "Polka dot skirt", unit_price: 2500, created_at: "2012-03-27 14:53:59 UTC", updated_at: "2012-03-27 14:53:59 UTC")
 
-    # InvoiceItem.create!(item: @hat, invoice: , quantity:  , unit_price:  , status:   )
-    # InvoiceItem.create!(item: , invoice: , quantity:  , unit_price:  , status:   )
+    @invoice_item_1 = InvoiceItem.create!(item: @hat, invoice: @invoice_1, quantity: 2, unit_price: 2400, status: "pending", created_at: "2012-03-27 14:53:59 UTC", updated_at: "2012-03-27 14:53:59 UTC")
+    @invoice_item_2 = InvoiceItem.create!(item: @socks, invoice: @invoice_1 , quantity: 2, unit_price: 1200, status: "pending", created_at: "2012-03-27 14:53:59 UTC", updated_at: "2012-03-27 14:53:59 UTC")
     # InvoiceItem.create!(item: , invoice: , quantity:  , unit_price:  , status:   )
     # InvoiceItem.create!(item: , invoice: , quantity:  , unit_price:  , status:   )
     # InvoiceItem.create!(item: , invoice: , quantity:  , unit_price:  , status:   )
@@ -64,20 +64,20 @@ RSpec.describe "Admin Invoices Show Page" do
 
       expect(page).to have_content(@invoice_1.id)
       expect(page).to have_content(@invoice_1.status)
-      expect(page).to have_content(@invoice_1.created_at)
-      expect(page).to have_content(@invoice_1.updated_at)
+      expect(page).to have_content(@invoice_1.created_at.strftime("%A, %B %d, %Y"))
+      expect(page).to have_content(@invoice_1.updated_at.strftime("%A, %B %d, %Y"))
       expect(page).to have_content(@invoice_1.customer.first_name)
       expect(page).to have_content(@invoice_1.customer.last_name)
     end
   end
 
   describe "Items on Invoice" do
-    xit "displays the items's info on that invoice" do
+    it "displays the items' info on that invoice" do
       visit "/admin/invoices/#{@invoice_1.id}"
 
-      expect(page).to have_content(@item_1.name)
-      expect(page).to have_content(@item_1.quantity)
-      expect(page).to have_content(@item_1.price_sold)
+      expect(page).to have_content(@hat.name)
+      expect(page).to have_content(@invoice_item_1.quantity)
+      expect(page).to have_content(@invoice_item_1.unit_price)
       expect(page).to have_content(@invoice_item_1.status)
     end
   end
