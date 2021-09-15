@@ -4,15 +4,15 @@
     end
 
     def show
-      @merchant = Merchant.find(params[:merchant_id])
+      @merchant = Merchant.find(params[:id])
     end
 
     def edit
-      @merchant = Merchant.find(params[:merchant_id])
+      @merchant = Merchant.find(params[:id])
     end
 
     def update
-      merchant = Merchant.find(params[:merchant_id])
+      merchant = Merchant.find(params[:id])
       if merchant.update(merch_params)
        redirect_to "/admin/merchants/#{merchant.id}"
        flash[:success] = 'Merchant Updated'
