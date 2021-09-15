@@ -26,18 +26,18 @@ Rails.application.routes.draw do
   resources :admin
 
 
-  namespace :merchants do
-    get '/:id/dashboard', to: 'dashboard#index'
-    get '/:id/items', to: 'items#index'
-    get '/:id/invoices', to: 'invoices#index'
-  end
+  # namespace :merchants do
+  #   get '/:id/dashboard', to: 'dashboard#index'
+  #   get '/:id/items', to: 'items#index'
+  #   get '/:id/invoices', to: 'invoices#index'
+  # end
 
   # namespace :admin do
   #   resources :merchants
   #   resources :invoices
   # end
-  get "/admin/invoices", to: "admin_invoices#index"
-  get "/admin/invoices/:id", to: "admin_invoices#show"
+  # get "/admin/invoices", to: "admin_invoices#index"
+  # get "/admin/invoices/:id", to: "admin_invoices#show"
 
   # resources :merchant, only: [:show] do
   #   resources :dashboard, only: [:index]
@@ -46,10 +46,10 @@ Rails.application.routes.draw do
   #   resources :invoices, only: [:index, :show, :update]
   # end
   #
-  # namespace :admin do
-  #   resources :dashboard, only: [:index]
-  #   resources :merchants, except: [:destroy]
-  #   resources :merchant_status, only: [:update]
-  #   resources :invoices, except: [:new, :destroy]
-  # end
+  namespace :admin do
+    resources :dashboard, only: [:index]
+    resources :merchants, except: [:destroy]
+    resources :merchant_status, only: [:update]
+    resources :invoices, except: [:new, :destroy]
+  end
 end
