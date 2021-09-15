@@ -12,13 +12,13 @@
     end
 
     def update
-      merchant = Merchant.find(params[:id])
-      if merchant.update(merch_params)
-       redirect_to "/admin/merchants/#{merchant.id}"
-       flash[:success] = 'Merchant Updated'
+      @merchant = Merchant.find(params[:id])
+      if @merchant.update(merch_params)
+        redirect_to "/admin/merchants/#{@merchant.id}"
+        flash[:success] = 'Merchant Updated successfully'
       else
-       redirect_to "/admin/merchants/#{merchant.id}/edit"
-       flash[:danger] = 'Merchant Not Updated: re-enter information'
+        redirect_to "/admin/merchants/#{@merchant.id}/edit"
+        flash[:danger] = 'Merchant Not Updated: re-enter information'
       end
     end
 
@@ -28,6 +28,6 @@
     private
 
     def merch_params
-      params.permit(:name)
+       params.require(:merchant).permit(:name)
     end
   end
