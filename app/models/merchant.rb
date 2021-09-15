@@ -3,4 +3,8 @@ class Merchant < ApplicationRecord
   validates :name, presence: true
 
   enum status: [:enable, :disable]
+
+  def all_invoices
+    Invoice.joins(:items).where('items.merchant_id = ?', id).uniq
+  end
 end
