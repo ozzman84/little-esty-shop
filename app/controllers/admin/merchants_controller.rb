@@ -13,7 +13,10 @@
 
     def update
       @merchant = Merchant.find(params[:id])
-      if @merchant.update(merch_params)
+      if params[:enable] == 'true'
+        @merchant.update(status: params[:status])
+        redirect_to "/admin/merchants"
+      elsif @merchant.update(merch_params)
         redirect_to "/admin/merchants/#{@merchant.id}"
         flash[:success] = 'Merchant Updated successfully'
       else
@@ -28,6 +31,6 @@
     private
 
     def merch_params
-       params.require(:merchant).permit(:name)
+       params.require(:merchant).permit(:name, :status)
     end
   end

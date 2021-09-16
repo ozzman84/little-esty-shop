@@ -9,29 +9,30 @@ describe 'Admin Merchants Index' do
     )
     @merchant2 = Merchant.create!(
       name: 'The Rock',
+      status: 1,
       created_at: "2012-03-27 14:54:09",
       updated_at: "2012-03-27 14:54:09"
     )
-    @merchant3 = Merchant.create!(
-      name: 'Madonna',
-      created_at: "2012-03-27 14:54:09",
-      updated_at: "2012-03-27 14:54:09"
-    )
-    @merchant4 = Merchant.create!(
-      name: 'Chris Hemsworth',
-      created_at: "2012-03-27 14:54:09",
-      updated_at: "2012-03-27 14:54:09"
-    )
-    @merchant5 = Merchant.create!(
-      name: 'Chris Evans',
-      created_at: "2012-03-27 14:54:09",
-      updated_at: "2012-03-27 14:54:09"
-    )
-    @merchant6 = Merchant.create!(
-      name: 'Scarlett Johansson',
-      created_at: "2012-03-27 14:54:09",
-      updated_at: "2012-03-27 14:54:09"
-    )
+    # @merchant3 = Merchant.create!(
+    #   name: 'Madonna',
+    #   created_at: "2012-03-27 14:54:09",
+    #   updated_at: "2012-03-27 14:54:09"
+    # )
+    # @merchant4 = Merchant.create!(
+    #   name: 'Chris Hemsworth',
+    #   created_at: "2012-03-27 14:54:09",
+    #   updated_at: "2012-03-27 14:54:09"
+    # )
+    # @merchant5 = Merchant.create!(
+    #   name: 'Chris Evans',
+    #   created_at: "2012-03-27 14:54:09",
+    #   updated_at: "2012-03-27 14:54:09"
+    # )
+    # @merchant6 = Merchant.create!(
+    #   name: 'Scarlett Johansson',
+    #   created_at: "2012-03-27 14:54:09",
+    #   updated_at: "2012-03-27 14:54:09"
+    # )
   end
 
   it 'lists names of all Merchants' do
@@ -39,13 +40,38 @@ describe 'Admin Merchants Index' do
 
     expect(page).to have_content('Jason Momoa')
     expect(page).to have_content('The Rock')
-    expect(page).to have_content('Madonna')
-    expect(page).to have_content('Chris Hemsworth')
-    expect(page).to have_content('Chris Evans')
-    expect(page).to have_content('Scarlett Johansson')
+    # expect(page).to have_content('Madonna')
+    # expect(page).to have_content('Chris Hemsworth')
+    # expect(page).to have_content('Chris Evans')
+    # expect(page).to have_content('Scarlett Johansson')
   end
 
-  # it 'can enable or disable with botton click' do
-  #   visit admin_merchants_path
-  # end
+  describe 'Admin Enable/Disable Merchants' do
+    it 'can enable or disable with botton click' do
+      visit admin_merchants_path
+
+      within("##{@merchant1.id}") do
+        expect(page).to have_button("Disable")
+      end
+
+      within("##{@merchant2.id}") do
+        expect(page).to have_button("Enable")
+      end
+    end
+
+    it 'can click enable to disable' do
+      visit admin_merchants_path
+
+      within("##{@merchant1.id}") do
+        click_button "Disable"
+      end
+      @merchant1.reload
+
+      expect(@merchant1.status).to eq("disable")
+
+      within("##{@merchant1.id}") do
+        expect(page).to have_button("Enable")
+      end
+    end
+  end
 end

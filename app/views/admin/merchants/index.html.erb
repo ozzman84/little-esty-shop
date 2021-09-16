@@ -1,7 +1,9 @@
 <h1>Admin Merchants Index</h1>
 
-<div class='container'>
-  <% @merchants.each do |merchant| %>
+<% @merchants.each do |merchant| %>
+  <div id="<%= merchant.id %>">
     <%= link_to merchant.name, "/admin/merchants/#{merchant.id}" %>
-  <% end %>
-</div>
+    <%= merchant.status %>
+    <%= button_to "#{merchant.enable? ? "Disable" : "Enable"}", "/admin/merchants/#{merchant.id}", params: { merchant_id: merchant.id, status: merchant.enable? ? "disable" : "enable", enable: true }, method: :patch %>
+  </div>
+<% end %>
