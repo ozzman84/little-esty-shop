@@ -49,6 +49,39 @@ RSpec.describe "Admin Invoices Show Page" do
       expect(page).to have_content(@invoice_item_1.quantity)
       expect(page).to have_content(@invoice_item_1.unit_price/100)
       expect(page).to have_content(@invoice_item_1.status)
+
+      expect(page).to have_content(@socks.name)
+      expect(page).to have_content(@invoice_item_2.quantity)
+      expect(page).to have_content(@invoice_item_2.unit_price/100)
+      expect(page).to have_content(@invoice_item_2.status)
+    end
+
+    it "displays the items' info on that invoice" do
+      visit "/admin/invoices/#{@invoice_2.id}"
+
+      expect(page).to have_content(@tank_top.name)
+      expect(page).to have_content(@invoice_item_3.quantity)
+      expect(page).to have_content(@invoice_item_3.unit_price/100)
+      expect(page).to have_content(@invoice_item_3.status)
+    end
+
+    it "displays the items' info on that invoice" do
+      visit "/admin/invoices/#{@invoice_3.id}"
+
+      expect(page).to have_content(@shorts.name)
+      expect(page).to have_content(@invoice_item_4.quantity)
+      expect(page).to have_content(@invoice_item_4.unit_price/100)
+      expect(page).to have_content(@invoice_item_4.status)
+
+      expect(page).to have_content(@dress.name)
+      expect(page).to have_content(@invoice_item_5.quantity)
+      expect(page).to have_content(@invoice_item_5.unit_price/100)
+      expect(page).to have_content(@invoice_item_5.status)
+
+      expect(page).to have_content(@skirt.name)
+      expect(page).to have_content(@invoice_item_6.quantity)
+      expect(page).to have_content(@invoice_item_6.unit_price/100)
+      expect(page).to have_content(@invoice_item_6.status)
     end
   end
 
@@ -57,16 +90,55 @@ RSpec.describe "Admin Invoices Show Page" do
       visit "/admin/invoices/#{@invoice_1.id}"
 
       expect(page).to have_content("Total Revenue:")
-      expect(page).to have_content(@invoice_1.total_revenue/100)
+      expect(page).to have_content(@invoice_1.total_revenue)
+    end
+
+    it "can generate the talal revenue from that invoice" do
+      visit "/admin/invoices/#{@invoice_2.id}"
+
+      expect(page).to have_content("Total Revenue:")
+      expect(page).to have_content(@invoice_2.total_revenue)
+    end
+
+    it "can generate the talal revenue from that invoice" do
+      visit "/admin/invoices/#{@invoice_3.id}"
+
+      expect(page).to have_content("Total Revenue:")
+      expect(page).to have_content(@invoice_3.total_revenue)
+      expect(page).to have_no_content(@invoice_2.total_revenue)
     end
   end
 
+  # As an admin
+  # When I visit an admin invoice show page
+  # I see the invoice status is a select field
+  # And I see that the invoice's current status is selected
+  # When I click this select field,
+  # Then I can select a new status for the Invoice,
+  # And next to the select field I see a button to "Update Invoice Status"
+  # When I click this button
+  # I am taken back to the admin invoice show page
+  # And I see that my Invoice's status has now been updated
 
   describe "Update Invoice Status" do
     it "displays a select field for invoice status" do
       visit "/admin/invoices/#{@invoice_1.id}"
 
       expect(page).to have_content(@invoice_1.status)
+      expect(page).to have_select(selected: "completed")
+    end
+
+    it "allows admin to select a new status and update it" do
+      visit "/admin/invoices/#{@invoice_1.id}"
+
+      select "cancelled"
+      click_on "Update Invoice Status"
+
+      expect(page).to have_content(@invoice_1.status)
+      expect(page).to have_content("cancelled")
+      expect(page).to have_select(selected: "cancelled")
+
+      expect(current_path).to eq("/admin/invoices/#{@invoice_1.id}")
     end
   end
 end
