@@ -43,7 +43,15 @@ RSpec.describe Invoice, type: :model do
 
   describe "#instance methods" do
     it "can gererate a total revenue" do
-      expect(@invoice_1.total_revenue).to eq(3600/100)
+      expect(@invoice_1.total_revenue).to eq(36)
     end
-  end  
+
+    it "can gererate a total revenue" do
+      expect(@invoice_2.total_revenue).to eq(18)
+    end
+
+    it "can gererate a total revenue" do
+      expect(@invoice_3.total_revenue).to eq(260)
+    end
+  end
 end
