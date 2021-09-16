@@ -46,12 +46,9 @@ RSpec.describe Invoice, type: :model do
       expect(@invoice_1.total_revenue).to eq(36)
     end
 
-    it "can gererate a total revenue" do
-      expect(@invoice_2.total_revenue).to eq(18)
-    end
-
-    it "can gererate a total revenue" do
-      expect(@invoice_3.total_revenue).to eq(260)
+    it "can return the invoice customers full name" do
+      invoice4 = create(:invoice, customer_id: @joey.id)
+      expect(invoice4.customer_name).to eq("Joey Ondricka")
     end
   end
 end
