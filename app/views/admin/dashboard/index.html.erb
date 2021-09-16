@@ -7,4 +7,13 @@
 
   <li><%= link_to 'List of Invoices', admin_invoices_path %></li>
 </ul>
+</div><br>
+
+<div id="top_five">
+  <h3>Top Customers:</h3>
+  <ol>
+     <% @top_five.each do |customer| %>
+     <li><%= customer.first_name + ' ' + customer.last_name %></li>
+   <% end %>
+   </ol>
 </div>
