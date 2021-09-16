@@ -5,7 +5,11 @@
 
 <p>----------------------------------------------------</p>
 
-<%= render "status_select_field" %>
+<%= form_with url: admin_invoice_path(@invoice), method: :patch, local: true do |form| %>
+    <%= form.hidden_field :invoice_id, value: @invoice.id %>
+    <%= form.select :status, options_for_select([:cancelled, "in progress", :completed], @invoice.status) %>
+  <%= form.submit "Update Invoice Status", class:"btn-btn-primary" %>
+<% end %>
 
 <p>----------------------------------------------------</p>
 
