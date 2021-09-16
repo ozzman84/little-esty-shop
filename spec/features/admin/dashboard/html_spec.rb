@@ -1,12 +1,5 @@
 require "rails_helper"
-# Admin Dashboard Statistics - Top Customers
-#
-# As an admin,
-# When I visit the admin dashboard
-# Then I see the names of the top 5 customers
-# who have conducted the largest number of successful transactions
-# And next to each customer name I see the number of successful transactions they have
-# conducted
+
 RSpec.describe "Dashboard Index Page" do
   before :each do
     @joey = Customer.create!(first_name: "Joey", last_name: "Ondricka", created_at: "2012-03-27 14:54:09 UTC", updated_at: "2012-03-27 14:54:09 UTC")
@@ -64,5 +57,33 @@ RSpec.describe "Dashboard Index Page" do
         expect(@mariah.first_name).to appear_before(@christ.first_name)
       end
     end
+
+    it "displays the number of successful transactions of each customer's name" do
+      visit "/admin"
+
+      expect(page).to have_content(@joey.number_of_transactions)
+      expect(page).to have_content(@cecelia.number_of_transactions)
+      expect(page).to have_content(@mariah.number_of_transactions)
+      expect(page).to have_content(@donna.number_of_transactions)
+      expect(page).to have_content(@christ.number_of_transactions)
+    end
+
+#     Admin Dashboard Incomplete Invoices
+#
+# As an admin,
+# When I visit the admin dashboard
+# Then I see a section for "Incomplete Invoices"
+# In that section I see a list of the ids of all invoices
+# That have items that have not yet been shipped
+# And each invoice id links to that invoice's admin show page
+#
+# Admin Dashboard Invoices sorted by least recent
+#
+# As an admin,
+# When I visit the admin dashboard
+# In the section for "Incomplete Invoices",
+# Next to each invoice id I see the date that the invoice was created
+# And I see the date formatted like "Monday, July 18, 2019"
+# And I see that the list is ordered from oldest to newest
   end
 end

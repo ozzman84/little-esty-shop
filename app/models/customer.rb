@@ -5,10 +5,14 @@ class Customer < ApplicationRecord
   has_many :transactions, through: :invoices
 
   def self.top_five_customers
-    joins(:transactions).where("transactions.result = ?", 1)
+    joins(:transactions).select("customers.*, count('transactions.result') as trans_count")
+                        .where("result = ?", 1)
                         .group(:id)
-                        .select("customers.*, count('transactions.result') as trans_count")
                         .order(trans_count: :desc)
                         .limit(5)
+  end
+
+  def number_of_transactions
+    transactions.where("result = ?", 1).count
   end
 end

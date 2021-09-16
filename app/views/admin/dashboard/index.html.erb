@@ -13,7 +13,7 @@
   <h3>Top Customers:</h3>
   <ol>
      <% @top_five.each do |customer| %>
-     <li><%= customer.first_name + ' ' + customer.last_name %></li>
+     <li><%= customer.first_name + ' ' + customer.last_name %> -- <%= customer.number_of_transactions %> purchases</li>
    <% end %>
    </ol>
 </div>
