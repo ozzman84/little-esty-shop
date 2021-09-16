@@ -44,5 +44,12 @@ RSpec.describe Item do
         expect(@item1.price_dollars(2)).to eq('66.60')
       end
     end
+
+    describe '.unit_price_dollars' do
+      it "return the unit price per item formatted in dollars" do
+        @item1.unit_price = 3330
+        expect(@item1.unit_price_dollars).to eq('33.30')
+      end
+    end
   end
 end

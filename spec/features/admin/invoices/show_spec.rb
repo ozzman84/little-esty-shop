@@ -47,12 +47,12 @@ RSpec.describe "Admin Invoices Show Page" do
 
       expect(page).to have_content(@hat.name)
       expect(page).to have_content(@invoice_item_1.quantity)
-      expect(page).to have_content(@invoice_item_1.unit_price/100)
+      expect(page).to have_content(@invoice_item_1.item.unit_price_dollars)
       expect(page).to have_content(@invoice_item_1.status)
 
       expect(page).to have_content(@socks.name)
       expect(page).to have_content(@invoice_item_2.quantity)
-      expect(page).to have_content(@invoice_item_2.unit_price/100)
+      expect(page).to have_content(@invoice_item_2.item.unit_price_dollars)
       expect(page).to have_content(@invoice_item_2.status)
     end
 
@@ -61,7 +61,7 @@ RSpec.describe "Admin Invoices Show Page" do
 
       expect(page).to have_content(@tank_top.name)
       expect(page).to have_content(@invoice_item_3.quantity)
-      expect(page).to have_content(@invoice_item_3.unit_price/100)
+      expect(page).to have_content(@invoice_item_3.item.unit_price_dollars)
       expect(page).to have_content(@invoice_item_3.status)
     end
 
@@ -70,17 +70,17 @@ RSpec.describe "Admin Invoices Show Page" do
 
       expect(page).to have_content(@shorts.name)
       expect(page).to have_content(@invoice_item_4.quantity)
-      expect(page).to have_content(@invoice_item_4.unit_price/100)
+      expect(page).to have_content(@invoice_item_4.item.unit_price_dollars)
       expect(page).to have_content(@invoice_item_4.status)
 
       expect(page).to have_content(@dress.name)
       expect(page).to have_content(@invoice_item_5.quantity)
-      expect(page).to have_content(@invoice_item_5.unit_price/100)
+      expect(page).to have_content(@invoice_item_5.item.unit_price_dollars)
       expect(page).to have_content(@invoice_item_5.status)
 
       expect(page).to have_content(@skirt.name)
       expect(page).to have_content(@invoice_item_6.quantity)
-      expect(page).to have_content(@invoice_item_6.unit_price/100)
+      expect(page).to have_content(@invoice_item_6.item.unit_price_dollars)
       expect(page).to have_content(@invoice_item_6.status)
     end
   end

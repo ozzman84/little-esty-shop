@@ -11,4 +11,8 @@ class Item < ApplicationRecord
   def price_dollars(quantity = 1)
     '%.2f' % (unit_price * quantity / 100.0)
   end
+
+  def unit_price_dollars
+    "%.2f" % (unit_price / 100.0)
+  end
 end
