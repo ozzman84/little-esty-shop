@@ -13,16 +13,17 @@ describe 'Admin Merchants Index' do
       created_at: "2012-03-27 14:54:09",
       updated_at: "2012-03-27 14:54:09"
     )
-    # @merchant3 = Merchant.create!(
-    #   name: 'Madonna',
-    #   created_at: "2012-03-27 14:54:09",
-    #   updated_at: "2012-03-27 14:54:09"
-    # )
-    # @merchant4 = Merchant.create!(
-    #   name: 'Chris Hemsworth',
-    #   created_at: "2012-03-27 14:54:09",
-    #   updated_at: "2012-03-27 14:54:09"
-    # )
+    @merchant3 = Merchant.create!(
+      name: 'Madonna',
+      created_at: "2012-03-27 14:54:09",
+      updated_at: "2012-03-27 14:54:09"
+    )
+    @merchant4 = Merchant.create!(
+      name: 'Chris Hemsworth',
+      status: 1,
+      created_at: "2012-03-27 14:54:09",
+      updated_at: "2012-03-27 14:54:09"
+    )
     # @merchant5 = Merchant.create!(
     #   name: 'Chris Evans',
     #   created_at: "2012-03-27 14:54:09",
@@ -40,8 +41,8 @@ describe 'Admin Merchants Index' do
 
     expect(page).to have_content('Jason Momoa')
     expect(page).to have_content('The Rock')
-    # expect(page).to have_content('Madonna')
-    # expect(page).to have_content('Chris Hemsworth')
+    expect(page).to have_content('Madonna')
+    expect(page).to have_content('Chris Hemsworth')
     # expect(page).to have_content('Chris Evans')
     # expect(page).to have_content('Scarlett Johansson')
   end
@@ -71,6 +72,26 @@ describe 'Admin Merchants Index' do
 
       within("##{@merchant1.id}") do
         expect(page).to have_button("Enable")
+      end
+    end
+  end
+
+  describe 'groups by status' do
+    it 'groups by Enabled' do
+      visit admin_merchants_path
+
+      within("#Enabled-table") do
+        expect(page).to have_content('Jason Momoa')
+        expect(page).to have_content('Madonna')
+        expect(page).not_to have_content('The Rock')
+        expect(page).not_to have_content('Chris Hemsworth')
+      end
+
+      within("#Disabled-table") do
+        expect(page).not_to have_content('Jason Momoa')
+        expect(page).not_to have_content('Madonna')
+        expect(page).to have_content('The Rock')
+        expect(page).to have_content('Chris Hemsworth')
       end
     end
   end
