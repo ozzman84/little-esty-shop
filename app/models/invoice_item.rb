@@ -4,4 +4,22 @@ class InvoiceItem < ApplicationRecord
   validates :quantity, :unit_price, :status, :created_at, :updated_at, presence: true
 
   enum status: [:pending, :packaged, :shipped]
+
+  def self.on_merchant_invoice(invoice_id, merchant_id)
+    invoice = Invoice.find(invoice_id)
+    InvoiceItem.where(item_id: invoice.items.where(merchant_id: merchant_id).uniq, invoice_id: invoice_id)
+  end
+
+  def self.total_rev
+    pennies = self.sum("unit_price * quantity")
+    '%.2f' % (pennies / 100.0)
+  end
+
+  def get_item
+    Item.find(item_id)
+  end
+
+  def price_dollars(mult = 1)
+    '%.2f' % (unit_price * mult / 100.0)
+  end
 end

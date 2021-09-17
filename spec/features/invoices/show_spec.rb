@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'the merchant invoices show page' do
+RSpec.describe 'Merchant invoices show page' do
   before :each do
     @merch = create(:merchant)
     @merch2 = create(:merchant)
@@ -28,7 +28,7 @@ RSpec.describe 'the merchant invoices show page' do
   it "shows invoice item" do
     visit "/merchant/#{@merch.id}/invoices/#{@invoice1.id}"
 
-    sum1 = @item1.price_dollars(@inv_item1.quantity)
+    sum1 = @inv_item1.price_dollars(@inv_item1.quantity)
     within('#items') do
       expect(page).to have_content(@item1.name)
       expect(page).to have_content(@inv_item1.quantity)
@@ -37,6 +37,19 @@ RSpec.describe 'the merchant invoices show page' do
 
       expect(page).to have_content(@item2.name)
       expect(page).to_not have_content(@item3.name)
+    end
+  end
+
+  it "Shows the total revenue for all items on the invoice" do
+    @inv_item1.update(unit_price: 225)
+    @inv_item1.update(quantity: 3)
+    @inv_item2.update(unit_price: 621)
+    @inv_item2.update(quantity: 2)
+
+    visit "/merchant/#{@merch.id}/invoices/#{@invoice1.id}"
+
+    within('#attributes') do
+      expect(page).to have_content("Total Revenue: $19.17")
     end
   end
 

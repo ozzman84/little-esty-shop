@@ -2,6 +2,7 @@
   <h2>Invoice #<%= @invoice.id %></h2>
   <h4>Status: <%= @invoice.status %></h4>
   <h4>Created on: <%= @invoice.created_at.strftime("%A, %B %d, %Y") %></h4>
+  <h4>Total Revenue: $<%= @invoice_items.total_rev %></h4>
   <h4>Customer: <%= @invoice.customer_name%></h4>
 </div>
 
@@ -17,13 +18,13 @@
       </tr>
     </thead>
     <tbody>
-      <% @items.each do |item| %>
+      <% @invoice_items.each do |inv| %>
       <tr>
-        <th scope="row"><%= item.id %></th>
-        <td><%= item.name %></td>
-        <td><%= item.invoice_item(@invoice.id).quantity %></td>
-        <td>$<%= item.price_dollars(item.invoice_item(@invoice.id).quantity) %></td>
-        <td><%= item.invoice_item(@invoice.id).status %></td>
+        <th scope="row"><%= inv.item_id %></th>
+        <td><%= inv.get_item.name %></td>
+        <td><%= inv.quantity %></td>
+        <td>$<%= inv.price_dollars(inv.quantity) %></td>
+        <td><%= inv.status %></td>
       </tr>
       <% end %>
     </tbody>
