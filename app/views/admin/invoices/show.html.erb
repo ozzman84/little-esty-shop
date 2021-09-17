@@ -47,7 +47,7 @@
       <th scope="row"><%= invoice_item.item.id %></th>
       <td><%= invoice_item.item.name %></td>
       <td><%= invoice_item.quantity %></td>
-      <td>$<%= invoice_item.unit_price/100 %></td>
+      <td>$<%= invoice_item.item.unit_price_dollars %></td>
       <td><%= invoice_item.status %></td>
     </tr>
   </tbody>

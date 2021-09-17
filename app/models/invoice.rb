@@ -9,7 +9,7 @@ class Invoice < ApplicationRecord
   enum status: [:cancelled, "in progress", :completed]
 
   def total_revenue
-    invoice_items.sum("unit_price * quantity")/100
+    "%.2f" % (invoice_items.sum("unit_price * quantity")/100.0)
   end
 
   def customer_name

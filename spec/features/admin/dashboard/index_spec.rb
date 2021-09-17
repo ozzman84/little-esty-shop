@@ -1,6 +1,6 @@
-require 'rails_helper'
+require "rails_helper"
 
-RSpec.describe Customer, type: :model do
+RSpec.describe "Admin Dashboard Index Page" do
   before :each do
     @joey = Customer.create!(first_name: "Joey", last_name: "Ondricka", created_at: "2012-03-27 14:54:09 UTC", updated_at: "2012-03-27 14:54:09 UTC")
     @cecelia = Customer.create!(first_name: "Cecelia", last_name: "Osinski", created_at: "2012-03-27 14:54:10 UTC", updated_at: "2012-03-27 14:54:10 UTC")
@@ -10,11 +10,11 @@ RSpec.describe Customer, type: :model do
     @amy = Customer.create!(first_name: "Amy", last_name: "Hollerway", created_at: "2012-03-27 14:54:10 UTC", updated_at: "2012-03-27 14:54:10 UTC")
 
     @invoice_1 = @joey.invoices.create!(customer_id: 1, status: "completed", created_at: "2012-03-13 16:54:10 UTC", updated_at: "2012-03-25 09:54:09 UTC")
-    @invoice_2 = @cecelia.invoices.create!(customer_id: 2, status: "cancelled", created_at: "2012-03-07 12:54:10 UTC", updated_at: "2012-03-13 16:54:10 UTC")
-    @invoice_3 = @mariah.invoices.create!(customer_id: 3, status: "in progress", created_at: "2012-03-06 21:54:10 UTC", updated_at: "2012-03-06 21:54:10 UTC")
-    @invoice_4 = @donna.invoices.create!(customer_id: 4, status: "completed", created_at: "2012-03-13 16:54:10 UTC", updated_at: "2012-03-25 09:54:09 UTC")
-    @invoice_5 = @christ.invoices.create!(customer_id: 5, status: "cancelled", created_at: "2012-03-07 12:54:10 UTC", updated_at: "2012-03-13 16:54:10 UTC")
-    @invoice_6 = @amy.invoices.create!(customer_id: 6, status: "in progress", created_at: "2012-03-06 21:54:10 UTC", updated_at: "2012-03-06 21:54:10 UTC")
+    @invoice_2 = @cecelia.invoices.create!(customer_id: 2, status: "completed", created_at: "2012-03-27 12:54:10 UTC", updated_at: "2012-03-31 16:54:10 UTC")
+    @invoice_3 = @mariah.invoices.create!(customer_id: 3, status: "in progress", created_at: "2012-03-06 21:54:10 UTC", updated_at: "2012-03-12 21:54:10 UTC")
+    @invoice_4 = @donna.invoices.create!(customer_id: 4, status: "completed", created_at: "2012-03-15 16:54:10 UTC", updated_at: "2012-03-25 09:54:09 UTC")
+    @invoice_5 = @christ.invoices.create!(customer_id: 5, status: "completed", created_at: "2012-03-10 12:54:10 UTC", updated_at: "2012-03-13 16:54:10 UTC")
+    @invoice_6 = @amy.invoices.create!(customer_id: 6, status: "in progress", created_at: "2012-03-18 21:54:10 UTC", updated_at: "2012-03-31 21:54:10 UTC")
 
     @zara = Merchant.create!(name: "Zara")
     @forever_21 = Merchant.create!(name: "Forever 21")
@@ -26,9 +26,9 @@ RSpec.describe Customer, type: :model do
     @dress = @forever_21.items.create!(name: "Dress", description: "Sun dress", unit_price: 2900, created_at: "2012-03-27 14:53:59 UTC", updated_at: "2012-03-27 14:53:59 UTC")
     @skirt = @forever_21.items.create!(name: "Skirt", description: "Polka dot skirt", unit_price: 2500, created_at: "2012-03-27 14:53:59 UTC", updated_at: "2012-03-27 14:53:59 UTC")
 
-    @invoice_item_1 = InvoiceItem.create!(item: @hat, invoice: @invoice_1, quantity: 2, unit_price: 1200, status: "pending", created_at: "2012-03-27 14:53:59 UTC", updated_at: "2012-03-27 14:53:59 UTC")
-    @invoice_item_2 = InvoiceItem.create!(item: @socks, invoice: @invoice_1 , quantity: 2, unit_price: 600, status: "pending", created_at: "2012-03-27 14:53:59 UTC", updated_at: "2012-03-27 14:53:59 UTC")
-    @invoice_item_3 = InvoiceItem.create!(item: @tank_top , invoice: @invoice_2, quantity: 1 , unit_price: 1800, status: "shipped", created_at: "2012-03-27 14:53:59 UTC", updated_at: "2012-03-27 14:53:59 UTC")
+    @invoice_item_1 = InvoiceItem.create!(item: @hat, invoice: @invoice_1, quantity: 2, unit_price: 1200, status: "pending", created_at: "2012-03-13 16:54:10 UTC", updated_at: "2012-03-25 09:54:09 UTC")
+    @invoice_item_2 = InvoiceItem.create!(item: @socks, invoice: @invoice_1 , quantity: 2, unit_price: 600, status: "pending", created_at: "2012-03-13 16:54:10 UTC", updated_at: "2012-03-25 09:54:09 UTC")
+    @invoice_item_3 = InvoiceItem.create!(item: @tank_top , invoice: @invoice_2, quantity: 1 , unit_price: 1800, status: "shipped", created_at: "2012-03-27 12:54:10 UTC", updated_at: "2012-03-31 16:54:10 UTC")
     @invoice_item_4 = InvoiceItem.create!(item: @shorts, invoice: @invoice_3  , quantity: 1 , unit_price: 4000, status: "shipped", created_at: "2012-03-27 14:53:59 UTC", updated_at: "2012-03-27 14:53:59 UTC")
     @invoice_item_5 = InvoiceItem.create!(item: @dress, invoice: @invoice_3, quantity: 5, unit_price: 2900, status: "packaged", created_at: "2012-03-27 14:53:59 UTC", updated_at: "2012-03-27 14:53:59 UTC")
     @invoice_item_6 = InvoiceItem.create!(item: @skirt, invoice: @invoice_3, quantity: 3, unit_price: 2500, status: "packaged", created_at: "2012-03-27 14:53:59 UTC", updated_at: "2012-03-27 14:53:59 UTC")
@@ -45,20 +45,81 @@ RSpec.describe Customer, type: :model do
     Transaction.create!(invoice_id: @invoice_6.id, credit_card_number: "4203696133194408", result: "success", created_at: "2012-03-27 14:54:10 UTC", updated_at: "2012-03-27 14:54:10 UTC")
   end
 
-  describe 'relationships' do
-    it { should have_many(:invoices) }
+  describe "Dashboard" do
+    it "displays a header stating Admin Dashboard" do
+      visit "/admin"
+
+      expect(page).to have_content("Admin Dashboard")
+    end
+
+    it "has a link to admin merchant index" do
+      visit "/admin"
+
+      expect(page).to have_link("Merchants")
+    end
+
+    it "has a link to admin invoice index" do
+      visit "/admin"
+
+      expect(page).to have_link("Invoices")
+    end
+
+    it "has a link to go back to home" do
+      visit "/admin"
+
+      expect(page).to have_link("Home")
+    end
   end
 
-  describe 'validations' do
-    it { should validate_presence_of(:first_name) }
-    it { should validate_presence_of(:last_name) }
-    it { should validate_presence_of(:created_at) }
-    it { should validate_presence_of(:updated_at) }
+  describe "Statistics" do
+    it "displays the names of the top 5 customers with largest number of successful transactions" do
+      visit "/admin"
+
+      expect(page).to have_content("Top Customers")
+
+      within("#top_five") do
+        expect(@joey.first_name).to appear_before(@cecelia.first_name)
+        expect(@cecelia.first_name).to appear_before(@donna.first_name)
+        expect(@mariah.first_name).to appear_before(@christ.first_name)
+      end
+    end
+
+    it "displays the number of successful transactions of each customer's name" do
+      visit "/admin"
+
+      expect(page).to have_content(@joey.number_of_transactions)
+      expect(page).to have_content(@cecelia.number_of_transactions)
+      expect(page).to have_content(@mariah.number_of_transactions)
+      expect(page).to have_content(@donna.number_of_transactions)
+      expect(page).to have_content(@christ.number_of_transactions)
+    end
   end
 
-  describe "#instance methods" do
-    it "can get top 5 customers with largest successful transactions" do
-      expect(Customer.top_five_customers).to eq([@joey, @cecelia, @mariah, @donna, @christ])
+  describe "Incomplete Invoices" do
+    it "has a name 'Incomplete Invoices'" do
+      visit "/admin"
+
+      expect(page).to have_content("Incomplete Invoices")
+    end
+
+    it "displays links of incomplete invoice ids that have items that have not been shipped" do
+      visit "/admin"
+
+      within("#invoices") do
+        expect(page).to have_link("Invoice ##{@invoice_1.id}")
+        expect(page).to have_link("Invoice ##{@invoice_1.id}")
+        expect(page).to have_link("Invoice ##{@invoice_1.id}")
+        expect(page).to have_link("Invoice ##{@invoice_1.id}")
+      end
+    end
+
+    it "displays when invoices are created at in first created order" do
+      visit "/admin"
+
+      within("#invoices") do
+        expect(page).to have_content("Created at: Saturday, March 10, 2012")
+        # expect(@invoice_3.created_at).to appear_before(@invoice_5.created_at)
+      end
     end
   end
 end
