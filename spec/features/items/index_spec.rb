@@ -12,7 +12,7 @@ RSpec.describe "Merchant item index" do
   end
 
   it "lists all of the merchants' items' names" do
-    visit merchant_items_path(@merch1.id)
+    visit merchant_items_path(@merch1)
 
     expect(page).to have_content(@item1.name)
     expect(page).to have_content(@item2.name)
@@ -21,13 +21,20 @@ RSpec.describe "Merchant item index" do
   end
 
   it "doesn't list any other merchants' items" do
-    visit merchant_items_path(@merch1.id)
+    visit merchant_items_path(@merch1)
     expect(page).to have_no_content(@item5.name)
   end
+
+  it "links each item's name to its show page" do
+    visit merchant_items_path(@merch1)
+    expect(page).to have_link("#{@item1.name}")
+    click_link "#{@item1.name}"
+    expect(current_path).to eq(merchant_item_path(@item1))
+
+    # visit merchant_items_path(@merch1.id)
+    #
+    # expect(page).to have_link("#{@item2.name}")
+    # click_link "#{@item2.name}"
+    # expect(current_path).to eq(merchant_item_path(@item2))
+  end
 end
-
-
-# As a merchant,
-# When I visit my merchant items index page ("merchant/merchant_id/items")
-# I see a list of the names of all of my items
-# And I do not see items for any other merchant
