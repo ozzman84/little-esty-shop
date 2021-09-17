@@ -1,0 +1,4 @@
+<h1><%= @item.name %></h1>
+<h6>Description: <%= @item.description %></h6>
+<h6>Price <%= number_to_currency(@item.price_dollars())%></h6>
+<h6><%= link_to "Update", edit_merchant_item_path %></h6>
