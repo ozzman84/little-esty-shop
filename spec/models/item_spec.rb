@@ -30,12 +30,6 @@ RSpec.describe Item do
       @inv_item3 = create(:invoice_item, invoice_id: @invoice1.id, item_id: @item3.id)
     end
 
-    describe '.invoice_item_status' do
-      it "returns the status of the invoice item associated with item" do
-        expect(@item1.invoice_item(@invoice1.id)).to eq(@inv_item1)
-        expect(@item2.invoice_item(@invoice1.id)).to eq(@inv_item2)
-      end
-    end
 
     describe '.price_dollars' do
       it "return the unit price * quantity formatted in dollars" do
