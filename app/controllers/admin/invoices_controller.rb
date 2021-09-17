@@ -13,7 +13,6 @@ class Admin::InvoicesController < ApplicationController
     @invoice.save
 
     redirect_to admin_invoice_path(@invoice)
-    
     flash[:notice] = "Invoice status successfully updated"
   end
 
