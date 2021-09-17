@@ -7,4 +7,14 @@ class Admin::InvoicesController < ApplicationController
     @invoice = Invoice.find(params[:id])
   end
 
+  def update
+    @invoice = Invoice.find(params[:id])
+    @invoice.update(status: params[:status])
+    @invoice.save
+
+    redirect_to admin_invoice_path(@invoice)
+    
+    flash[:notice] = "Invoice status successfully updated"
+  end
+
 end

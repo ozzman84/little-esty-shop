@@ -1,4 +1,10 @@
-<h1>Admin Dashboard</h1>
+<%= render "admin/admin_header" %>
 
-<%= link_to 'List of Merchants', '/admin/merchants' %><br>
-<%= link_to 'List of Invoices', '/admin/invoices' %>
+<div class="jumbotron">
+  <h1 class="display-4">Admin Dashboard</h1><br>
+<ul>
+  <li><%= link_to 'List of Merchants', admin_merchants_path %></li><br>
+
+  <li><%= link_to 'List of Invoices', admin_invoices_path %></li>
+</ul>
+</div>

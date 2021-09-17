@@ -1,0 +1,31 @@
+<div id="attributes">
+  <h2>Invoice #<%= @invoice.id %></h2>
+  <h4>Status: <%= @invoice.status %></h4>
+  <h4>Created on: <%= @invoice.created_at.strftime("%A, %B %d, %Y") %></h4>
+  <h4>Customer: <%= @invoice.customer_name%></h4>
+</div>
+
+<div class='container' id="items">
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Item</th>
+        <th scope="col">Quantity</th>
+        <th scope="col">Price</th>
+        <th scope="col">Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @items.each do |item| %>
+      <tr>
+        <th scope="row"><%= item.id %></th>
+        <td><%= item.name %></td>
+        <td><%= item.invoice_item(@invoice.id).quantity %></td>
+        <td>$<%= item.price_dollars(item.invoice_item(@invoice.id).quantity) %></td>
+        <td><%= item.invoice_item(@invoice.id).status %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
