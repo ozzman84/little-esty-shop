@@ -106,10 +106,10 @@ RSpec.describe "Admin Dashboard Index Page" do
       visit "/admin"
 
       within("#invoices") do
-        expect(page).to have_link("Invoice##{@invoice_1.id}")
-        expect(page).to have_link("Invoice##{@invoice_1.id}")
-        expect(page).to have_link("Invoice##{@invoice_1.id}")
-        expect(page).to have_link("Invoice##{@invoice_1.id}")
+        expect(page).to have_link("Invoice ##{@invoice_1.id}")
+        expect(page).to have_link("Invoice ##{@invoice_1.id}")
+        expect(page).to have_link("Invoice ##{@invoice_1.id}")
+        expect(page).to have_link("Invoice ##{@invoice_1.id}")
       end
     end
 
