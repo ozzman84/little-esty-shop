@@ -27,14 +27,15 @@ RSpec.describe "Merchant item index" do
 
   it "links each item's name to its show page" do
     visit merchant_items_path(@merch1)
+
     expect(page).to have_link("#{@item1.name}")
     click_link "#{@item1.name}"
-    expect(current_path).to eq(merchant_item_path(@item1))
+    expect(current_path).to eq(merchant_item_path(@merch1, @item1))
 
-    # visit merchant_items_path(@merch1.id)
-    #
-    # expect(page).to have_link("#{@item2.name}")
-    # click_link "#{@item2.name}"
-    # expect(current_path).to eq(merchant_item_path(@item2))
+    visit merchant_items_path(@merch1)
+
+    expect(page).to have_link("#{@item2.name}")
+    click_link "#{@item2.name}"
+    expect(current_path).to eq(merchant_item_path(@merch1, @item2))
   end
 end
