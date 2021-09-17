@@ -8,5 +8,5 @@ class RepoName
     string.split('-').map do |word|
       word.capitialize + ' '
     end.join[0..-2]
-  end     
+  end
 end
