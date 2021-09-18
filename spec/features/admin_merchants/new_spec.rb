@@ -3,22 +3,22 @@ require 'rails_helper'
 describe 'Admin Merchant' do
   describe 'creates new Merchant' do
     it 'can create a new Merchant' do
-      visit new_admin_merchant_url
+      visit admin_merchants_url
 
-      within("#create_merchant") do
+      within("#create-merchant") do
         click_link 'Create Merchant'
-      end 
+      end
 
       fill_in 'Name', with: 'Oz World'
-      click_on 'Submit'
+      click_on 'Create Merchant'
 
-      @merchant = Merchant.last.id
+      @merchant = Merchant.last
 
       expect(current_path).to eq(admin_merchants_path)
 
-      within("#Disabled-table") do
+      within("##{@merchant.id}") do
         expect(page).to have_content('Oz World')
-        expect(@merchant.status).to eq('disable')
+        expect(@merchant.status).to eq('enable')
       end
     end
   end

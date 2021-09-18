@@ -30,6 +30,14 @@
     end
 
     def create
+      @merchant = Merchant.new(merch_params)
+      if @merchant.save
+        flash[:success] = 'Merchant Updated successfully'
+        redirect_to '/admin/merchants'
+      else
+        redirect_to new
+        flash[:danger] = 'Merchant Not Created: re-enter information'
+      end
     end
 
     private
