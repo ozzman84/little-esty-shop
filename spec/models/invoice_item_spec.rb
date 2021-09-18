@@ -64,7 +64,7 @@ RSpec.describe InvoiceItem do
       expect(InvoiceItem.incomplete_invoices).to eq([@invoice_1, @invoice_3, @invoice_5, @invoice_6])
     end
   end
-  
+
   before :each do
     @merch = create(:merchant)
     @merch2 = create(:merchant)
@@ -95,7 +95,7 @@ RSpec.describe InvoiceItem do
         @inv_item2.update(unit_price:  25)
         @inv_item3.update(unit_price:  75)
 
-        expect(InvoiceItem.total_rev).to eq('3.00')
+        expect(InvoiceItem.total_rev).to eq('595.00')
       end
     end
   end
