@@ -18,7 +18,7 @@ describe 'Admin Merchant' do
 
       within("##{@merchant.id}") do
         expect(page).to have_content('Oz World')
-        expect(@merchant.status).to eq('enable')
+        expect(@merchant.status).to eq('disabled')
       end
     end
   end

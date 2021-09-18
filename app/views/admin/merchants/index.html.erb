@@ -125,11 +125,12 @@
                 </tr>
               </thead>
               <tbody>
-                <% @merchants.enable.each do |merchant| %>
+
+                <% @merchants.enabled.each do |merchant| %>
                 <tr id="<%= merchant.id %>">
                   <td><%= merchant.id %></td>
                   <td><%= link_to merchant.name, "/admin/merchants/#{merchant.id}" %></td>
-                  <td><%= button_to "#{merchant.enable? ? "Disable" : "Enable"}", "/admin/merchants/#{merchant.id}", params: { merchant_id: merchant.id, status: merchant.enable? ? "disable" : "enable", enable: true }, method: :patch %></td>
+                  <td><%= button_to "#{merchant.enabled? ? "Disable" : "Enable"}", "/admin/merchants/#{merchant.id}", params: { merchant_id: merchant.id, status: merchant.enabled? ? "disabled" : "enabled", enable: true }, method: :patch %></td>
                 </tr>
                 <% end %>
               </tbody>
@@ -163,11 +164,11 @@
                 </tr>
               </thead>
               <tbody>
-                <% @merchants.disable.each do |merchant| %>
+                <% @merchants.disabled.each do |merchant| %>
                 <tr id="<%= merchant.id %>">
                   <td><%= merchant.id %></td>
                   <td><%= link_to merchant.name, "/admin/merchants/#{merchant.id}" %></td>
-                  <td><%= button_to "#{merchant.enable? ? "Disable" : "Enable"}", "/admin/merchants/#{merchant.id}", params: { merchant_id: merchant.id, status: merchant.enable? ? "disable" : "enable", enable: true }, method: :patch %></td>
+                  <td><%= button_to "#{merchant.enabled? ? "Disable" : "Enable"}", "/admin/merchants/#{merchant.id}", params: { merchant_id: merchant.id, status: merchant.enabled? ? "disabled" : "enabled", enable: true }, method: :patch %></td>
                 </tr>
                 <% end %>
               </tbody>

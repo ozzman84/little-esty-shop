@@ -52,11 +52,11 @@ describe 'Admin Merchants Index' do
       visit admin_merchants_path
 
       within("##{@merchant1.id}") do
-        expect(page).to have_button("Disable")
+        expect(page).to have_button("Enable")
       end
 
       within("##{@merchant2.id}") do
-        expect(page).to have_button("Enable")
+        expect(page).to have_button("Disable")
       end
     end
 
@@ -64,14 +64,14 @@ describe 'Admin Merchants Index' do
       visit admin_merchants_path
 
       within("##{@merchant1.id}") do
-        click_button "Disable"
+        click_button "Enable"
       end
       @merchant1.reload
 
-      expect(@merchant1.status).to eq("disable")
+      expect(@merchant1.status).to eq("enabled")
 
       within("##{@merchant1.id}") do
-        expect(page).to have_button("Enable")
+        expect(page).to have_button("Disable")
       end
     end
   end
@@ -79,19 +79,19 @@ describe 'Admin Merchants Index' do
   describe 'groups by status' do
     it 'groups by Enabled' do
       visit admin_merchants_path
-
+      
       within("#Enabled-table") do
-        expect(page).to have_content('Jason Momoa')
-        expect(page).to have_content('Madonna')
-        expect(page).not_to have_content('The Rock')
-        expect(page).not_to have_content('Chris Hemsworth')
-      end
-
-      within("#Disabled-table") do
         expect(page).not_to have_content('Jason Momoa')
         expect(page).not_to have_content('Madonna')
         expect(page).to have_content('The Rock')
         expect(page).to have_content('Chris Hemsworth')
+      end
+
+      within("#Disabled-table") do
+        expect(page).to have_content('Jason Momoa')
+        expect(page).to have_content('Madonna')
+        expect(page).not_to have_content('The Rock')
+        expect(page).not_to have_content('Chris Hemsworth')
       end
     end
   end
