@@ -64,6 +64,7 @@ RSpec.describe InvoiceItem do
       expect(InvoiceItem.incomplete_invoices).to eq([@invoice_1, @invoice_3, @invoice_5, @invoice_6])
     end
   end
+end
 
   before :each do
     @merch = create(:merchant)
