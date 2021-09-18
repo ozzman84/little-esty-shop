@@ -8,6 +8,7 @@ git_source(:github) do |repo_name|
 end
 
 gem 'faraday'
+gem "json"
 
 ruby '2.7.2'
 
