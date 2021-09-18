@@ -8,6 +8,11 @@ class ItemsController < ApplicationController
     @item = Item.find(params[:id])
   end
 
+  def edit
+    @item = Item.find(params[:id])
+    @merchant = Merchant.find(params[:merchant_id])
+  end
+
   def update
     @item = Item.find(params[:id])
     @item.update(item_params)
@@ -18,6 +23,6 @@ class ItemsController < ApplicationController
 
 
   def item_params
-     params.permit(:name, :description, :unit_price)
+     params.require(:item).permit(:name, :description, :unit_price)
   end
 end
