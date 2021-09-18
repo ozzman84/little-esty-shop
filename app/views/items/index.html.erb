@@ -2,6 +2,9 @@
 
 <ul>
   <% @merchant_items.each do |item| %>
-  <li><%= link_to item.name, merchant_item_path(@merchant, item) %></li>
+  <div id="item-<%= item.id %>">
+  <li><%= link_to item.name, merchant_item_path(@merchant, item) %>
+  <%= button_to item.status, merchant_item_path(@merchant, item), method: :patch, params: {item: item, status: item.status} %></li>
+  </div>
   <% end %>
 </ul>
