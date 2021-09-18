@@ -71,4 +71,14 @@ RSpec.describe "Merchant Dashboard" do
 
     expect(current_path).to eq(merchant_invoice_path(@merch.id, @invoice1.id))
   end
+
+  it "ready to ship has created at date and order by oldest to newest" do
+    @inv_item1.update(created_at: '2012-03-27 14:54:45 UTC')
+    @inv_item2.update(created_at: '2012-03-26 14:54:45 UTC')
+    visit merchant_dashboard_index_path(@merch.id)
+
+    within('#ready-to-ship') do
+      expect(@item2.name).to appear_before(@item1.name)
+    end
+  end
 end
