@@ -38,4 +38,35 @@ RSpec.describe "Merchant item index" do
     click_link "#{@item2.name}"
     expect(current_path).to eq(merchant_item_path(@merch1, @item2))
   end
+
+  it "shows the items status and button to change status" do
+    visit merchant_items_path(@merch1)
+
+    within "#item-#{@item1.id}" do
+      if @item1.status == 0
+        click_button "#{@item1.status}"
+        expect(@item1.status).to eq("enabled")
+      elsif @item2.status == 1
+        click_button "#{@item1.status}"
+        expect(@item1.status).to eq("disabled")
+      end
+      expect(current_path).to eq(merchant_items_path(@merch1))
+    end
+  end
+
+  it "enabled disabled sad path" do
+    @item2.status = "enabled"
+    visit merchant_items_path(@merch1)
+
+    within "#item-#{@item2.id}" do
+      if @item2.status == 0
+        click_button "#{@item2.status}"
+        expect(@item2.status).to eq("enabled")
+      elsif @item2.status == 1
+        click_button "#{@item2.status}"
+        expect(@item2.status).to eq("disabled")
+      end
+      expect(current_path).to eq(merchant_items_path(@merch1))
+    end
+  end
 end

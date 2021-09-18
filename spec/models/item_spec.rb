@@ -30,6 +30,11 @@ RSpec.describe Item do
       @inv_item3 = create(:invoice_item, invoice_id: @invoice1.id, item_id: @item3.id)
     end
 
+    it "has a default status of disabled" do
+      expect(@item1.status).to eq('disabled')
+      @item1.enabled!
+      expect(@item1.status).to eq('enabled')
+    end
 
     describe '.price_dollars' do
       it "return the unit price * quantity formatted in dollars" do

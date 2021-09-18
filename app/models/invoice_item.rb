@@ -9,11 +9,12 @@ class InvoiceItem < ApplicationRecord
   def self.incomplete_invoices
     invoice_ids = InvoiceItem.where("status = 0 OR status = 1").pluck(:invoice_id)
     Invoice.order(created_at: :asc).find(invoice_ids)
-  end  
+  end
 
   def self.on_merchant_invoice(invoice_id, merchant_id)
     invoice = Invoice.find(invoice_id)
-    InvoiceItem.where(item_id: invoice.items.where(merchant_id: merchant_id).uniq, invoice_id: invoice_id)
+    InvoiceItem.where(item_id: invoice.items.where(merchant_id: merchant_id), invoice_id: invoice_id)
+               .order(:item_id)
   end
 
   def self.total_rev
