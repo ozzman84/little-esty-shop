@@ -4,6 +4,7 @@ class Item < ApplicationRecord
   has_many :invoices, through: :invoice_items
   validates :name, :description, :unit_price, :created_at, :updated_at, presence: true
 
+  enum status: [:disabled, :enabled]
 
   def price_dollars(quantity = 1)
     '%.2f' % (unit_price * quantity / 100.0)
