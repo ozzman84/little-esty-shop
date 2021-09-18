@@ -19,12 +19,17 @@
     </thead>
     <tbody>
       <% @invoice_items.each do |inv| %>
-      <tr>
+      <tr id="invoice-item<%= inv.id %>">
         <th scope="row"><%= inv.item_id %></th>
         <td><%= inv.get_item.name %></td>
         <td><%= inv.quantity %></td>
         <td>$<%= inv.price_dollars(inv.quantity) %></td>
-        <td><%= inv.status %></td>
+        <td><%= form_with model: [@merchant, inv], local: true do |f| %>
+              <%= f.hidden_field :invoice_id, value: @invoice.id %>
+              <%= f.select :status, [:pending, :packaged, :shipped], selected: inv.status %>
+              <%= f.submit "Update Status"%>
+            <% end %>
+        </td>
       </tr>
       <% end %>
     </tbody>
