@@ -2,24 +2,26 @@ require 'rails_helper'
 
 RSpec.describe "Merchant Dashboard" do
   before :each do
-    @merch = Merchant.create!({name: "Douglas Olson"})
-    @item1 = @merch.items.create!(name: "Polly Pocket", description: "So pretty", unit_price: 862, created_at: "2012-03-27 14:53:59 UTC", updated_at: "2012-03-27 14:53:59 UTC")
-    @item2 = @merch.items.create!(name: "Cabbage Patch Doll", description: "Cute", unit_price: 1239, created_at: "2012-03-27 14:53:59 UTC", updated_at: "2012-03-27 14:53:59 UTC")
-    @item3 = @merch.items.create!(name: "Teddy Ruxpin", description: "Creepy", unit_price: 1543, created_at: "2012-03-27 14:53:59 UTC", updated_at: "2012-03-27 14:53:59 UTC")
-    @item4 = @merch.items.create!(name: "Barbie", description: "Gorgeous", unit_price: 2183, created_at: "2012-03-27 14:53:59 UTC", updated_at: "2012-03-27 14:53:59 UTC")
-    @item5 = @merch.items.create!(name: "GI Joe", description: "Imperialism", unit_price: 743, created_at: "2012-03-27 14:53:59 UTC", updated_at: "2012-03-27 14:53:59 UTC")
-    @cust1 = build(:customer)
-
+    @merch = create(:merchant)
+    @merch2 = create(:merchant)
+    @item1 = create(:item, merchant_id: @merch.id)
+    @item2 = create(:item, merchant_id: @merch.id)
+    @item3 = create(:item, merchant_id: @merch2.id)
+    @cust = create(:customer)
+    @invoice1 = create(:invoice, customer_id: @cust.id)
+    @inv_item1 = create(:invoice_item, invoice_id: @invoice1.id, item_id: @item1.id)
+    @inv_item2 = create(:invoice_item, invoice_id: @invoice1.id, item_id: @item2.id)
+    @inv_item3 = create(:invoice_item, invoice_id: @invoice1.id, item_id: @item3.id)
   end
 
   it "displays the name of the merchant" do
-    visit "/merchant/#{@merch.id}/dashboard"
+    visit merchant_dashboard_index_path(@merch.id)
 
     expect(page).to have_content(@merch.name)
   end
 
   it "displays links to merchant items and invoices indexes" do
-    visit "/merchant/#{@merch.id}/dashboard"
+    visit  merchant_dashboard_index_path(@merch.id)
 
     expect(page).to have_link("My Items")
     click_link "My Items"
@@ -33,10 +35,40 @@ RSpec.describe "Merchant Dashboard" do
   end
 
   it "displays items ready to ship and their invoice ids" do
+    inv_item4 = create(:invoice_item, invoice_id: @invoice1.id, item_id: @item1.id)
+    visit merchant_dashboard_index_path(@merch.id)
 
+    within('#ready-to-ship') do
+      expect(page).to have_content("Items Ready to Ship")
+      expect(page).to have_content(@item1.name, count: 2)
+      expect(page).to have_content(@item2.name)
+      expect(page).to_not have_content(@item3.name)
+    end
+
+    @inv_item1.update(status: 'packaged')
+    inv_item4.update(status: 'shipped')
+    visit merchant_dashboard_index_path(@merch.id)
+
+    within('#ready-to-ship') do
+      expect(page).to have_content("Items Ready to Ship")
+      expect(page).to have_content(@item1.name, count: 1)
+      expect(page).to have_content(@item2.name)
+      expect(page).to_not have_content(@item3.name)
+    end
   end
 
   it "gives invoice ids as links to invoice show pages" do
+    @inv_item2.destroy!
+    visit merchant_dashboard_index_path(@merch.id)
 
+    within('#ready-to-ship') do
+      expect(page).to have_content(@item1.name, count: 1)
+      expect(page).to_not have_content(@item2.name)
+      expect(page).to have_link("Invoice ##{@invoice1.id}")
+
+      click_link "Invoice ##{@invoice1.id}"
+    end
+
+    expect(current_path).to eq(merchant_invoice_path(@merch.id, @invoice1.id))
   end
 end
