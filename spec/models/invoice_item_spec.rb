@@ -43,6 +43,17 @@ RSpec.describe InvoiceItem do
     Transaction.create!(invoice_id: @invoice_4.id, credit_card_number: "4515551623735607", result: "success", created_at: "2012-03-27 14:54:10 UTC", updated_at: "2012-03-27 14:54:10 UTC")
     Transaction.create!(invoice_id: @invoice_5.id, credit_card_number: "4844518708741275", result: "success", created_at: "2012-03-27 14:54:10 UTC", updated_at: "2012-03-27 14:54:10 UTC")
     Transaction.create!(invoice_id: @invoice_6.id, credit_card_number: "4203696133194408", result: "success", created_at: "2012-03-27 14:54:10 UTC", updated_at: "2012-03-27 14:54:10 UTC")
+
+    @merch = create(:merchant)
+    @merch2 = create(:merchant)
+    @item1 = create(:item, merchant_id: @merch.id)
+    @item2 = create(:item, merchant_id: @merch.id)
+    @item3 = create(:item, merchant_id: @merch2.id)
+    @cust = create(:customer)
+    @invoice1 = create(:invoice, customer_id: @cust.id)
+    @inv_item1 = create(:invoice_item, unit_price: @item1.unit_price, invoice_id: @invoice1.id, item_id: @item1.id)
+    @inv_item2 = create(:invoice_item, unit_price: @item2.unit_price, invoice_id: @invoice1.id, item_id: @item2.id)
+    @inv_item3 = create(:invoice_item, unit_price: @item2.unit_price, invoice_id: @invoice1.id, item_id: @item3.id)
   end
 
   describe 'relationships' do
@@ -63,20 +74,6 @@ RSpec.describe InvoiceItem do
     xit "can display incomplete invoices with items that have not been shipped" do
       expect(InvoiceItem.incomplete_invoices).to eq([@invoice_1, @invoice_3, @invoice_5, @invoice_6])
     end
-  end
-
-
-  before :each do
-    @merch = create(:merchant)
-    @merch2 = create(:merchant)
-    @item1 = create(:item, merchant_id: @merch.id)
-    @item2 = create(:item, merchant_id: @merch.id)
-    @item3 = create(:item, merchant_id: @merch2.id)
-    @cust = create(:customer)
-    @invoice1 = create(:invoice, customer_id: @cust.id)
-    @inv_item1 = create(:invoice_item, unit_price: @item1.unit_price, invoice_id: @invoice1.id, item_id: @item1.id)
-    @inv_item2 = create(:invoice_item, unit_price: @item2.unit_price, invoice_id: @invoice1.id, item_id: @item2.id)
-    @inv_item3 = create(:invoice_item, unit_price: @item2.unit_price, invoice_id: @invoice1.id, item_id: @item3.id)
   end
 
   describe 'class methods' do
