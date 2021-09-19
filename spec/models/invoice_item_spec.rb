@@ -98,6 +98,7 @@ RSpec.describe InvoiceItem do
     end
   end
 
+
   describe 'instance methods' do
     describe '.get_item' do
       it 'returns the item on the invoice' do
