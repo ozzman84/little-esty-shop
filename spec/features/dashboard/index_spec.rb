@@ -81,4 +81,21 @@ RSpec.describe "Merchant Dashboard" do
       expect(@item2.name).to appear_before(@item1.name)
     end
   end
+
+  it "shows the top 5 customers" do
+    cust2 = create(:customer)
+    invoice2 = create(:invoice, customer_id: cust2.id)
+    inv_item3 = create(:invoice_item, invoice_id: invoice2.id, item_id: @item1.id)
+    trans1 = create(:transaction, invoice_id: invoice2.id)
+    trans2 = create(:transaction, invoice_id: @invoice1.id)
+    trans3 = create(:transaction, invoice_id: invoice2.id)
+    visit merchant_dashboard_index_path(@merch.id)
+
+    within('#top-customers') do
+      expect(page).to have_content("Favorite Customers")
+      expect(page).to have_content("#{cust2.first_name} #{cust2.last_name}- 2 purchase(s)")
+      expect(page).to have_content("#{@cust.first_name} #{@cust.last_name}- 1 purchase(s)")
+    end
+  end
+
 end

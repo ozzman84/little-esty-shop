@@ -15,4 +15,19 @@ class Customer < ApplicationRecord
   def number_of_transactions
     transactions.where("result = ?", 1).count
   end
+
+  def self.top_merchant_customers(merch_id)
+    joins(:transactions)
+    .select("customers.*, count('transactions.result') as trans_count")
+    .where("result = 1")
+    .where("transactions.invoice_id IN (?)",
+           Item.joins(:invoice_items)
+               .select(:id,'invoice_items.invoice_id AS invoice_id')
+               .where(merchant_id: merch_id)
+               .pluck('invoice_id')
+               .uniq)
+    .group(:id)
+    .order(trans_count: :desc)
+    .limit(5)
+  end
 end
