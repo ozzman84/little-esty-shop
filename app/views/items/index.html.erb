@@ -10,7 +10,7 @@
        <br>
        <table class="table table-striped table-sm" id="enabled-items">
          <tbody>
-           <% @merchant.enabled_items.each do |item| %>
+           <% @merchant.items_status('enabled').each do |item| %>
            <tr id="item-<%= item.id %>">
              <td><%= link_to item.name, merchant_item_path(@merchant, item) %></td>
              <td><%= button_to "Disable", merchant_item_path(@merchant, item), method: :patch, params: {item: item, status: item.status} %></td>
@@ -24,7 +24,7 @@
         <br>
         <table class="table table-striped table-sm" id="disabled-items">
           <tbody>
-            <% @merchant.disabled_items.each do |item| %>
+            <% @merchant.items_status('disabled').each do |item| %>
             <tr id="item-<%= item.id %>">
               <td><%= link_to item.name, merchant_item_path(@merchant, item) %></td>
               <td><%= button_to "Enable", merchant_item_path(@merchant, item), method: :patch, params: {item: item, status: item.status} %></td>

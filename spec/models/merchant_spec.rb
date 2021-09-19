@@ -15,9 +15,9 @@ RSpec.describe Merchant do
     before :each do
       @merch = create(:merchant)
       @merch2 = create(:merchant)
-      @item1 = create(:item, merchant_id: @merch.id)
-      @item2 = create(:item, merchant_id: @merch.id)
-      @item3 = create(:item, merchant_id: @merch.id)
+      @item1 = create(:item, merchant_id: @merch.id, status: 'enabled')
+      @item2 = create(:item, merchant_id: @merch.id, status: 'enabled')
+      @item3 = create(:item, merchant_id: @merch.id, status: 'disabled')
       @item4 = create(:item, merchant_id: @merch2.id)
       @invoice1 = create(:invoice)
       @invoice2 = create(:invoice)
@@ -43,5 +43,13 @@ RSpec.describe Merchant do
         expect(@merch.ready_to_ship.third.name).to eq(@item2.name)
       end
     end
+
+    describe '.items_status' do
+      it "returns all items with a specific status for a merchant" do
+        expect(@merch.items_status('enabled')).to eq([@item1, @item2])
+        expect(@merch.items_status('disabled')).to eq([@item3])
+      end
+    end
+
   end
 end
