@@ -7,7 +7,7 @@ RSpec.describe "Merchant item create" do
 
   it "creates a new item" do
     visit merchant_items_path(@merch)
-    click_link "Create item"
+    click_button "Create item"
 
     expect(current_path).to eq(new_merchant_item_path(@merch))
 
@@ -29,14 +29,14 @@ RSpec.describe "Merchant item create" do
 
   it "new item sad path" do
     visit merchant_items_path(@merch)
-    click_link "Create item"
+    click_button "Create item"
 
     expect(current_path).to eq(new_merchant_item_path(@merch))
 
     fill_in "Name", with: "Rainbow Brite"
     fill_in "Price", with: "1468"
     click_button "Submit"
-    
+
     expect(current_path).to eq(new_merchant_item_path(@merch))
     expect(page).to have_content("Item not created. Try again.")
   end

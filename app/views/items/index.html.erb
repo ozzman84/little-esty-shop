@@ -1,11 +1,37 @@
-<h1><%= @merchant.name %> Items:</h1>
-<%= link_to "Create item", new_merchant_item_path(@merchant) %>
+<%= render partial: "layouts/merchant_header", locals: {merchant: @merchant} %>
 
-<ul>
-  <% @merchant_items.each do |item| %>
-  <div id="item-<%= item.id %>">
-  <li><%= link_to item.name, merchant_item_path(@merchant, item) %>
-  <%= button_to item.status, merchant_item_path(@merchant, item), method: :patch, params: {item: item, status: item.status} %></li>
+<h1><%= @merchant.name %> Items</h1>
+<%= button_to "Create item", new_merchant_item_path(@merchant), method: :get %>
+<br>
+<div class="container px-0">
+  <div class="row gx-5">
+    <div class="col">
+     <div class="p-3 border bg-light" id="ready-to-ship"><h3>Enabled Items</h3>
+       <br>
+       <table class="table table-striped table-sm" id="enabled-items">
+         <tbody>
+           <% @merchant.enabled_items.each do |item| %>
+           <tr id="item-<%= item.id %>">
+             <td><%= link_to item.name, merchant_item_path(@merchant, item) %></td>
+             <td><%= button_to "Disable", merchant_item_path(@merchant, item), method: :patch, params: {item: item, status: item.status} %></td>
+           <% end %>
+         </tbody>
+       </table>
+     </div>
+    </div>
+    <div class="col">
+      <div class="p-3 border bg-light" id="top-customers"><h3>Disabled Items</h3>
+        <br>
+        <table class="table table-striped table-sm" id="disabled-items">
+          <tbody>
+            <% @merchant.disabled_items.each do |item| %>
+            <tr id="item-<%= item.id %>">
+              <td><%= link_to item.name, merchant_item_path(@merchant, item) %></td>
+              <td><%= button_to "Enable", merchant_item_path(@merchant, item), method: :patch, params: {item: item, status: item.status} %></td>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
-  <% end %>
-</ul>
+</div>

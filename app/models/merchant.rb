@@ -14,4 +14,12 @@ class Merchant < ApplicationRecord
          .where.not('invoice_items.status = ?', 2)
          .order("invoice_created")
   end
+
+  def enabled_items
+    items.where(status: 'enabled')
+  end
+
+  def disabled_items
+    items.where(status: 'disabled')
+  end
 end
