@@ -107,10 +107,14 @@ RSpec.describe "Admin Dashboard Index Page" do
 
       within("#invoices") do
         expect(page).to have_link("Invoice ##{@invoice_1.id}")
-        expect(page).to have_link("Invoice ##{@invoice_1.id}")
-        expect(page).to have_link("Invoice ##{@invoice_1.id}")
-        expect(page).to have_link("Invoice ##{@invoice_1.id}")
+        expect(page).to have_link("Invoice ##{@invoice_3.id}")
+        expect(page).to have_link("Invoice ##{@invoice_5.id}")
+        expect(page).to have_link("Invoice ##{@invoice_6.id}")
       end
+
+      click_on "Invoice ##{@invoice_1.id}"
+
+      expect(current_path).to eq(admin_invoice_path(@invoice_1))
     end
 
     it "displays when invoices are created at in first created order" do
