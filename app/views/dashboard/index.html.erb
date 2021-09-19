@@ -4,7 +4,7 @@
 
 <div id="ready-to-ship">
   <h4>Items Ready to Ship</h4>
-  <% @ready_to_ship.each do |item| %>
+  <% @merchant.ready_to_ship.each do |item| %>
     <p>
       <%= item.name %> -
       <%= link_to "Invoice ##{item.invoice_id}", merchant_invoice_path(@merchant.id, item.invoice_id)  %>
@@ -12,3 +12,13 @@
     </p>
   <% end %>
 </div>
+
+<div id="top-customers">
+  <h4>Favorite Customers</h4>
+  <% @top_customers.each do |cust| %>
+    <p>
+      <%= cust.first_name %> <%= cust.last_name %>-
+      <%= cust.trans_count %> purchase(s)
+    </p>
+  <% end %>
+</div
