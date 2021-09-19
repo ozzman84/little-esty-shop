@@ -1,16 +1,22 @@
+<%= render partial: "layouts/merchant_header", locals: {merchant: @merchant} %>
+
 <div id="attributes">
   <h2>Invoice #<%= @invoice.id %></h2>
-  <h4>Status: <%= @invoice.status %></h4>
-  <h4>Created on: <%= @invoice.created_at.strftime("%A, %B %d, %Y") %></h4>
-  <h4>Total Revenue: $<%= @invoice_items.total_rev %></h4>
-  <h4>Customer: <%= @invoice.customer_name%></h4>
+  <span style="font-size: 20px;"><b style="font-size: 22px;">Status: </b> <%= @invoice.status %></span>
+  <br>
+  <span style="font-size: 20px;"><b style="font-size: 22px;">Created on: </b> <%= @invoice.created_at.strftime("%A, %B %d, %Y") %></span>
+  <br>
+  <span style="font-size: 20px;"><b style="font-size: 22px;">Total Revenue: </b> $<%= @invoice_items.total_rev %></span>
+  <br>
+  <span style="font-size: 20px;"><b style="font-size: 22px;">Customer: </b> <%= @invoice.customer_name %></span>
+  <br>
+  <br>
 </div>
 
 <div class='container' id="items">
   <table class="table table-hover">
     <thead>
       <tr>
-        <th scope="col">ID</th>
         <th scope="col">Item</th>
         <th scope="col">Quantity</th>
         <th scope="col">Price</th>
@@ -20,7 +26,6 @@
     <tbody>
       <% @invoice_items.each do |inv| %>
       <tr id="invoice-item<%= inv.id %>">
-        <th scope="row"><%= inv.item_id %></th>
         <td><%= inv.get_item.name %></td>
         <td><%= inv.quantity %></td>
         <td>$<%= inv.price_dollars(inv.quantity) %></td>
