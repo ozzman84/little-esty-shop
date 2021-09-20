@@ -40,18 +40,35 @@ RSpec.describe "Merchant item index" do
   end
 
   it "shows the items status and button to change status" do
+    item5 = @merch1.items.create!(name: "Bratz", description: "Gorgeous", unit_price: 2183, status: "enabled", created_at: "2012-03-27 14:53:59 UTC", updated_at: "2012-03-27 14:53:59 UTC")
     visit merchant_items_path(@merch1)
 
+    # within "#item-#{@item1.id}" do
+    #   if @item1.status == 0
+    #     click_button "#{@item1.status}"
+    #     expect(@item1.status).to eq("enabled")
+    #   elsif @item2.status == 1
+    #     click_button "#{@item1.status}"
+    #     expect(@item1.status).to eq("disabled")
+    #   end
+    #   expect(current_path).to eq(merchant_items_path(@merch1))
+    # end
     within "#item-#{@item1.id}" do
-      if @item1.status == 0
-        click_button "#{@item1.status}"
-        expect(@item1.status).to eq("enabled")
-      elsif @item2.status == 1
-        click_button "#{@item1.status}"
-        expect(@item1.status).to eq("disabled")
-      end
-      expect(current_path).to eq(merchant_items_path(@merch1))
+      expect(page).to have_content(@item1.name)
+      expect(page).to have_button("Enable")
+      click_button("Enable")
+      expect(page).to have_content(@item1.name)
+      expect(page).to have_button("Disable")
     end
+
+    within "#item-#{item5.id}" do
+      expect(page).to have_content(item5.name)
+      expect(page).to have_button("Disable")
+      click_button("Disable")
+      expect(page).to have_content(item5.name)
+      expect(page).to have_button("Enable")
+    end
+
   end
 
   it "enabled disabled sad path" do
@@ -67,6 +84,22 @@ RSpec.describe "Merchant item index" do
         expect(@item2.status).to eq("disabled")
       end
       expect(current_path).to eq(merchant_items_path(@merch1))
+    end
+  end
+
+  it "shows items in enabled and disabled column" do
+    item5 = @merch1.items.create!(name: "Bratz", description: "Gorgeous", unit_price: 2183, status: "enabled", created_at: "2012-03-27 14:53:59 UTC", updated_at: "2012-03-27 14:53:59 UTC")
+    visit merchant_items_path(@merch1)
+
+    @item2.status = "enabled"
+    within("#enabled-items") do
+      expect(page).to have_content(item5.name)
+      expect(page).to_not have_content(@item1.name)
+    end
+
+    within("#disabled-items") do
+      expect(page).to have_content(@item1.name)
+      expect(page).to_not have_content(item5.name)
     end
   end
 end
