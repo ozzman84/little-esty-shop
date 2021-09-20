@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe Merchant do
   describe 'relationships' do
     it { should have_many(:items) }
+    it { should have_many(:invoices).through :items }
   end
 
   describe 'validations' do
@@ -12,7 +13,6 @@ RSpec.describe Merchant do
   end
 
   describe 'instance methods' do
-
     before :each do
       @merch = create(:merchant)
       @item1 = create(:item, merchant_id: @merch.id)
@@ -26,8 +26,14 @@ RSpec.describe Merchant do
     end
 
     describe 'all_invoices' do
-      it "returns all invoices for a merchant" do
+      it 'returns all invoices for a merchant' do
         expect(@merch.all_invoices).to eq([@invoice1, @invoice2])
+      end
+    end
+
+    describe 'Top Merchants' do
+      it 'returns top 5 merchants by revenue' do
+        expect(@merch.top_5_by_rev).to eq([])
       end
     end
   end
