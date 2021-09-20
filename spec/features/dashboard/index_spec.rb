@@ -2,6 +2,9 @@ require 'rails_helper'
 
 RSpec.describe "Merchant Dashboard" do
   before :each do
+    allow_any_instance_of(GithubService).to receive(:get_data).and_return("haha")
+    allow_any_instance_of(GithubService).to receive(:pulls).and_return({one: 1, two: 2 })
+    allow_any_instance_of(GithubService).to receive(:name).and_return({name: "little-esty-shop"})
     @merch = create(:merchant)
     @merch2 = create(:merchant)
     @item1 = create(:item, merchant_id: @merch.id)

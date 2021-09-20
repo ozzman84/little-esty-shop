@@ -2,6 +2,9 @@ require 'rails_helper'
 
 describe 'Admin Merchants Index' do
   before :each do
+    allow_any_instance_of(GithubService).to receive(:get_data).and_return("haha")
+    allow_any_instance_of(GithubService).to receive(:pulls).and_return({one: 1, two: 2 })
+    allow_any_instance_of(GithubService).to receive(:name).and_return({name: "little-esty-shop"})
     @merchant1 = Merchant.create!(
       name: 'Jason Momoa',
       created_at: "2012-03-27 14:54:09",
@@ -79,7 +82,7 @@ describe 'Admin Merchants Index' do
   describe 'groups by status' do
     it 'groups by Enabled' do
       visit admin_merchants_path
-      
+
       within("#Enabled-table") do
         expect(page).not_to have_content('Jason Momoa')
         expect(page).not_to have_content('Madonna')
