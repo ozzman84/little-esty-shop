@@ -56,9 +56,19 @@ RSpec.describe Customer, type: :model do
     it { should validate_presence_of(:updated_at) }
   end
 
-  describe "#instance methods" do
+  describe "#class methods" do
     it "can get top 5 customers with largest successful transactions" do
       expect(Customer.top_five_customers).to eq([@joey, @cecelia, @mariah, @donna, @christ])
+    end
+
+
+    describe '#top_merchant_customers' do
+      it "returns the customers with the highest transaciton count for the merchant" do
+        Transaction.create!(invoice_id: @invoice_4.id, credit_card_number: "4203696133194408", result: "success", created_at: "2012-03-27 14:54:10 UTC", updated_at: "2012-03-27 14:54:10 UTC")
+        Transaction.create!(invoice_id: @invoice_4.id, credit_card_number: "4203696133194408", result: "success", created_at: "2012-03-27 14:54:10 UTC", updated_at: "2012-03-27 14:54:10 UTC")
+        Transaction.create!(invoice_id: @invoice_2.id, credit_card_number: "4203696133194408", result: "success", created_at: "2012-03-27 14:54:10 UTC", updated_at: "2012-03-27 14:54:10 UTC")
+        expect(Customer.top_merchant_customers(@zara.id)).to eq([@donna, @cecelia, @joey])
+      end
     end
   end
 end

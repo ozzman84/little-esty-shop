@@ -1,14 +1,27 @@
-<h1><%= @merchant.name %></h1>
-<h3><%= link_to "My Items", "/merchant/#{@merchant.id}/items" %></h3>
-<h3><%= link_to "My Invoices", "/merchant/#{@merchant.id}/invoices" %></h3>
+<%= render partial: "layouts/merchant_header", locals: {merchant: @merchant} %>
 
-<div id="ready-to-ship">
-  <h4>Items Ready to Ship</h4>
-  <% @ready_to_ship.each do |item| %>
-    <p>
-      <%= item.name %> -
-      <%= link_to "Invoice ##{item.invoice_id}", merchant_invoice_path(@merchant.id, item.invoice_id)  %>
-      - <%= item.invoice_created.strftime("%A, %B %d, %Y") %>
-    </p>
-  <% end %>
+<div class="container px-0">
+  <div class="row gx-5">
+    <div class="col">
+     <div class="p-3 border bg-light" id="ready-to-ship"><h3>Items Ready to Ship</h3>
+       <br>
+     <% @merchant.ready_to_ship.each do |item| %>
+       <p>
+         <%= item.name %> -
+         <%= link_to "Invoice ##{item.invoice_id}", merchant_invoice_path(@merchant.id, item.invoice_id) %>
+         - <%= item.invoice_created.strftime("%A, %B %d, %Y") %>
+       </p>
+     <% end %></div>
+    </div>
+    <div class="col">
+      <div class="p-3 border bg-light" id="top-customers"><h3>Favorite Customers</h3>
+        <br>
+      <% @top_customers.each do |cust| %>
+        <p>
+          <%= cust.first_name %> <%= cust.last_name %>-
+          <%= cust.trans_count %> purchase(s)
+        </p>
+      <% end %></div>
+    </div>
+  </div>
 </div>

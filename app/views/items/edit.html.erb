@@ -1,11 +1,5 @@
+<%= render partial: "layouts/merchant_header", locals: {merchant: @merchant} %>
+
 <h1>Edit Item</h1>
 
-  <%= form_with model: [@merchant, @item], method: :patch, local: true do |f| %>
-    <%= f.label :name, "Name"%><br/>
-    <%= f.text_field :name %><br/>
-    <%= f.label :description, "Description" %><br/>
-    <%= f.text_area :description %><br/>
-    <%= f.label :unit_price, "Price" %><br/>
-    <%= f.number_field :unit_price %><br/>
-    <%= f.submit "Submit" %>
-  <% end %>
+<%= render partial: "item_form", locals: {method: :patch, model: [@merchant, @item]} %>

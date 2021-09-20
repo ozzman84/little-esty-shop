@@ -1,0 +1,5 @@
+<%= render partial: "layouts/merchant_header", locals: {merchant: @merchant} %>
+
+<h1>New Item</h1>
+
+<%= render partial: "item_form", locals: {method: :post, model: [@merchant, @item]} %>

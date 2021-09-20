@@ -1,0 +1,25 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <span class="navbar-brand" style="padding-left: 15px; padding-right: 15px">
+    <%= merchant.name %>
+  </span>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="/">Home<span class="sr-only"></span></a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="/merchant/<%= merchant.id %>/dashboard">My Dashboard<span class="sr-only"></span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/merchant/<%= merchant.id %>/items">My Items</a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="/merchant/<%= merchant.id %>/invoices">My Invoices<span class="sr-only"></span></a>
+      </li>
+    </ul>
+  </div>
+</nav><br>
