@@ -61,6 +61,11 @@ RSpec.describe Customer, type: :model do
       expect(Customer.top_five_customers).to eq([@joey, @cecelia, @mariah, @donna, @christ])
     end
 
+    it "can get numbers of transactions" do
+      expect(@joey.number_of_transactions).to eq(1)
+      expect(@cecelia.number_of_transactions).to eq(1)
+      expect(@mariah.number_of_transactions).to eq(1)
+    end
 
     describe '#top_merchant_customers' do
       it "returns the customers with the highest transaciton count for the merchant" do
