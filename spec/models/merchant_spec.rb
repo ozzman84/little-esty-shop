@@ -43,13 +43,5 @@ RSpec.describe Merchant do
         expect(@merch.ready_to_ship.third.name).to eq(@item2.name)
       end
     end
-
-    describe '.items_status' do
-      it "returns all items with a specific status for a merchant" do
-        expect(@merch.items_status('enabled')).to eq([@item1, @item2])
-        expect(@merch.items_status('disabled')).to eq([@item3])
-      end
-    end
-
   end
 end

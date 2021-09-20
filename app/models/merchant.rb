@@ -14,9 +14,4 @@ class Merchant < ApplicationRecord
          .where.not('invoice_items.status = ?', 2)
          .order("invoice_created")
   end
-
-  def items_status(status)
-    items.where(status: status)
-  end
-
 end
