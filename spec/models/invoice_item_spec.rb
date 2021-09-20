@@ -71,8 +71,8 @@ RSpec.describe InvoiceItem do
 
 
   describe ".incomplete_invoices" do
-    xit "can display incomplete invoices with items that have not been shipped" do
-      expect(InvoiceItem.incomplete_invoices).to eq([@invoice_1, @invoice_3, @invoice_5, @invoice_6])
+    it "can display incomplete invoices with items that have not been shipped" do
+      expect(InvoiceItem.incomplete_invoices).to eq([@invoice_3, @invoice_6, @invoice_5, @invoice_1, @invoice1])
     end
   end
 
