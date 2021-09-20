@@ -2,6 +2,9 @@ require "rails_helper"
 
 RSpec.describe "Admin Invoices Index Page" do
   before :each do
+    allow_any_instance_of(GithubService).to receive(:get_data).and_return("haha")
+    allow_any_instance_of(GithubService).to receive(:pulls).and_return({one: 1, two: 2 })
+    allow_any_instance_of(GithubService).to receive(:name).and_return({name: "little-esty-shop"})
     @joey = Customer.create!(first_name: "Joey", last_name: "Ondricka", created_at: "2012-03-27 14:54:09 UTC", updated_at: "2012-03-27 14:54:09 UTC")
     @cecelia = Customer.create!(first_name: "Cecelia", last_name: "Osinski", created_at: "2012-03-27 14:54:10 UTC", updated_at: "2012-03-27 14:54:10 UTC")
     @mariah = Customer.create!(first_name: "Mariah", last_name: "Toy", created_at: "2012-03-27 14:54:10 UTC", updated_at: "2012-03-27 14:54:10 UTC")
