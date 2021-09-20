@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
 
   def name
    json = GithubService.new.get_data
-   @repo_name = Repo.new(json).name
+   @repo = Repo.new(json)
   end
 
   def welcome
