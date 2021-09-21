@@ -1,5 +1,6 @@
 class Merchant < ApplicationRecord
-  has_many :items
+  has_many :items, dependent: :destroy
+  has_many :invoices, through: :items
   validates :name, presence: true
 
   enum status: [:disabled, :enabled]
@@ -13,5 +14,14 @@ class Merchant < ApplicationRecord
          .joins(:invoice_items)
          .where.not('invoice_items.status = ?', 2)
          .order("invoice_created")
+  end
+
+  def self.top_5_by_rev
+    joins(invoices: :transactions)
+    .where('transactions.result = ?', 1)
+    .select('merchants.*, SUM(invoice_items.unit_price*invoice_items.quantity) AS total_rev')
+    .group(:id)
+    .order(total_rev: :desc)
+    .limit(5)
   end
 end
