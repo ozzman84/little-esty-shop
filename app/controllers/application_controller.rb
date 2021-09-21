@@ -1,7 +1,9 @@
 class ApplicationController < ActionController::Base
-  def names
-   json = GithubService.new.repos
-   @repo_name = Repo.new(json).name
+  before_action :name
+
+  def name
+   #json = GithubService.new.get_all
+   @repo = Repo.new("json")
   end
 
   def welcome
