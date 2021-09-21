@@ -2,47 +2,46 @@ require 'rails_helper'
 
 RSpec.describe Customer, type: :model do
   before :each do
-    @joey = Customer.create!(first_name: "Joey", last_name: "Ondricka", created_at: "2012-03-27 14:54:09 UTC", updated_at: "2012-03-27 14:54:09 UTC")
-    @cecelia = Customer.create!(first_name: "Cecelia", last_name: "Osinski", created_at: "2012-03-27 14:54:10 UTC", updated_at: "2012-03-27 14:54:10 UTC")
-    @mariah = Customer.create!(first_name: "Mariah", last_name: "Toy", created_at: "2012-03-27 14:54:10 UTC", updated_at: "2012-03-27 14:54:10 UTC")
-    @donna = Customer.create!(first_name: "Donna", last_name: "Dumdooko", created_at: "2012-03-27 14:54:10 UTC", updated_at: "2012-03-27 14:54:10 UTC")
-    @christ = Customer.create!(first_name: "Christ", last_name: "Hough", created_at: "2012-03-27 14:54:10 UTC", updated_at: "2012-03-27 14:54:10 UTC")
-    @amy = Customer.create!(first_name: "Amy", last_name: "Hollerway", created_at: "2012-03-27 14:54:10 UTC", updated_at: "2012-03-27 14:54:10 UTC")
+    @merchant = create(:merchant)
+    @merchant2 = create(:merchant)
 
-    @invoice_1 = @joey.invoices.create!(customer_id: 1, status: "completed", created_at: "2012-03-13 16:54:10 UTC", updated_at: "2012-03-25 09:54:09 UTC")
-    @invoice_2 = @cecelia.invoices.create!(customer_id: 2, status: "cancelled", created_at: "2012-03-07 12:54:10 UTC", updated_at: "2012-03-13 16:54:10 UTC")
-    @invoice_3 = @mariah.invoices.create!(customer_id: 3, status: "in progress", created_at: "2012-03-06 21:54:10 UTC", updated_at: "2012-03-06 21:54:10 UTC")
-    @invoice_4 = @donna.invoices.create!(customer_id: 4, status: "completed", created_at: "2012-03-13 16:54:10 UTC", updated_at: "2012-03-25 09:54:09 UTC")
-    @invoice_5 = @christ.invoices.create!(customer_id: 5, status: "cancelled", created_at: "2012-03-07 12:54:10 UTC", updated_at: "2012-03-13 16:54:10 UTC")
-    @invoice_6 = @amy.invoices.create!(customer_id: 6, status: "in progress", created_at: "2012-03-06 21:54:10 UTC", updated_at: "2012-03-06 21:54:10 UTC")
+    @customers = create_list(:customer, 7)
+    @customer2 = create(:customer)
 
-    @zara = Merchant.create!(name: "Zara")
-    @forever_21 = Merchant.create!(name: "Forever 21")
+    @items = create_list(:item, 7, merchant: @merchant)
+    @item2 = create(:item, merchant: @merchant2)
 
-    @hat = @zara.items.create!(name: "Hat", description: "Sun hat", unit_price: 1200, created_at: "2012-03-27 14:53:59 UTC", updated_at: "2012-03-27 14:53:59 UTC")
-    @socks = @zara.items.create!(name: "Socks", description: "Heart pattern socks", unit_price: 600, created_at: "2012-03-27 14:53:59 UTC", updated_at: "2012-03-27 14:53:59 UTC")
-    @tank_top = @zara.items.create!(name: "Tank top", description: "Work out tank top", unit_price: 1800, created_at: "2012-03-27 14:53:59 UTC", updated_at: "2012-03-27 14:53:59 UTC")
-    @shorts = @forever_21.items.create!(name: "Shorts", description: "Black denim shorts", unit_price: 4000, created_at: "2012-03-27 14:53:59 UTC", updated_at: "2012-03-27 14:53:59 UTC")
-    @dress = @forever_21.items.create!(name: "Dress", description: "Sun dress", unit_price: 2900, created_at: "2012-03-27 14:53:59 UTC", updated_at: "2012-03-27 14:53:59 UTC")
-    @skirt = @forever_21.items.create!(name: "Skirt", description: "Polka dot skirt", unit_price: 2500, created_at: "2012-03-27 14:53:59 UTC", updated_at: "2012-03-27 14:53:59 UTC")
+    @invoice_0 = create(:invoice, customer: @customers[0])
+    @invoice_1 = create(:invoice, customer: @customers[1])
+    @invoice_2 = create(:invoice, customer: @customers[2])
+    @invoice_3 = create(:invoice, customer: @customers[3])
+    @invoice_4 = create(:invoice, customer: @customers[4])
+    @invoice_5 = create(:invoice, customer: @customers[5])
+    @invoice_6 = create(:invoice, customer: @customers[6])
+    @invoice_7 = create(:invoice, customer: @customer2)
 
-    @invoice_item_1 = InvoiceItem.create!(item: @hat, invoice: @invoice_1, quantity: 2, unit_price: 1200, status: "pending", created_at: "2012-03-27 14:53:59 UTC", updated_at: "2012-03-27 14:53:59 UTC")
-    @invoice_item_2 = InvoiceItem.create!(item: @socks, invoice: @invoice_1 , quantity: 2, unit_price: 600, status: "pending", created_at: "2012-03-27 14:53:59 UTC", updated_at: "2012-03-27 14:53:59 UTC")
-    @invoice_item_3 = InvoiceItem.create!(item: @tank_top , invoice: @invoice_2, quantity: 1 , unit_price: 1800, status: "shipped", created_at: "2012-03-27 14:53:59 UTC", updated_at: "2012-03-27 14:53:59 UTC")
-    @invoice_item_4 = InvoiceItem.create!(item: @shorts, invoice: @invoice_3  , quantity: 1 , unit_price: 4000, status: "shipped", created_at: "2012-03-27 14:53:59 UTC", updated_at: "2012-03-27 14:53:59 UTC")
-    @invoice_item_5 = InvoiceItem.create!(item: @dress, invoice: @invoice_3, quantity: 5, unit_price: 2900, status: "packaged", created_at: "2012-03-27 14:53:59 UTC", updated_at: "2012-03-27 14:53:59 UTC")
-    @invoice_item_6 = InvoiceItem.create!(item: @skirt, invoice: @invoice_3, quantity: 3, unit_price: 2500, status: "packaged", created_at: "2012-03-27 14:53:59 UTC", updated_at: "2012-03-27 14:53:59 UTC")
-    @invoice_item_7 = InvoiceItem.create!(item: @tank_top , invoice: @invoice_4, quantity: 1 , unit_price: 1800, status: "shipped", created_at: "2012-03-27 14:53:59 UTC", updated_at: "2012-03-27 14:53:59 UTC")
-    @invoice_item_8 = InvoiceItem.create!(item: @shorts, invoice: @invoice_5  , quantity: 1 , unit_price: 4000, status: "shipped", created_at: "2012-03-27 14:53:59 UTC", updated_at: "2012-03-27 14:53:59 UTC")
-    @invoice_item_9 = InvoiceItem.create!(item: @dress, invoice: @invoice_5, quantity: 5, unit_price: 2900, status: "packaged", created_at: "2012-03-27 14:53:59 UTC", updated_at: "2012-03-27 14:53:59 UTC")
-    @invoice_item_10 = InvoiceItem.create!(item: @skirt, invoice: @invoice_6, quantity: 3, unit_price: 2500, status: "packaged", created_at: "2012-03-27 14:53:59 UTC", updated_at: "2012-03-27 14:53:59 UTC")
+    @ii_1 = create(:invoice_item, item: @items[0], invoice: @invoice_0)
+    @ii_2 = create(:invoice_item, item: @items[0], invoice: @invoice_1)
+    @ii_3 = create(:invoice_item, item: @items[1] , invoice: @invoice_2)
+    @ii_4 = create(:invoice_item, item: @items[1], invoice: @invoice_3)
+    @ii_5 = create(:invoice_item, item: @items[2], invoice: @invoice_3)
+    @ii_6 = create(:invoice_item, item: @items[3], invoice: @invoice_3)
+    @ii_7 = create(:invoice_item, item: @items[4] , invoice: @invoice_4)
+    @ii_8 = create(:invoice_item, item: @items[5], invoice: @invoice_5)
+    @ii_9 = create(:invoice_item, item: @items[6], invoice: @invoice_6)
+    @ii_10 = create(:invoice_item, item: @item2, invoice: @invoice_7)
 
-    Transaction.create!(invoice_id: @invoice_1.id, credit_card_number: "4654405418249632", result: "success", created_at: "2012-03-27 14:54:09 UTC", updated_at: "2012-03-27 14:54:09 UTC")
-    Transaction.create!(invoice_id: @invoice_2.id, credit_card_number: "4580251236515201", result: "success", created_at: "2012-03-27 14:54:09 UTC", updated_at: "2012-03-27 14:54:09 UTC")
-    Transaction.create!(invoice_id: @invoice_3.id, credit_card_number: "4354495077693036", result: "success", created_at: "2012-03-27 14:54:10 UTC", updated_at: "2012-03-27 14:54:10 UTC")
-    Transaction.create!(invoice_id: @invoice_4.id, credit_card_number: "4515551623735607", result: "success", created_at: "2012-03-27 14:54:10 UTC", updated_at: "2012-03-27 14:54:10 UTC")
-    Transaction.create!(invoice_id: @invoice_5.id, credit_card_number: "4844518708741275", result: "success", created_at: "2012-03-27 14:54:10 UTC", updated_at: "2012-03-27 14:54:10 UTC")
-    Transaction.create!(invoice_id: @invoice_6.id, credit_card_number: "4203696133194408", result: "success", created_at: "2012-03-27 14:54:10 UTC", updated_at: "2012-03-27 14:54:10 UTC")
+    @trans_success_1 = create_list(:transaction, 4, invoice: @invoice_1)
+    @trans_success_2 = create(:transaction, invoice: @invoice_2)
+    @trans_success_3 = create_list(:transaction, 2, invoice: @invoice_3)
+    @trans_success_4 = create_list(:transaction, 3, invoice: @invoice_4)
+    @trans_success_5 = create_list(:transaction, 5, invoice: @invoice_5)
+    @trans_success_7 = create_list(:transaction, 7, invoice: @invoice_7)
+
+    @trans_failed_1 = create(:failed_transaction, invoice: @invoice_1)
+    @trans_failed_2 = create(:failed_transaction, invoice: @invoice_2)
+    @trans_failed_6 = create(:failed_transaction, invoice: @invoice_6)
+    @trans_failed_7 = create(:failed_transaction, invoice: @invoice_7)
   end
 
   describe 'relationships' do
@@ -58,21 +57,20 @@ RSpec.describe Customer, type: :model do
 
   describe "#class methods" do
     it "can get top 5 customers with largest successful transactions" do
-      expect(Customer.top_five_customers).to eq([@joey, @cecelia, @mariah, @donna, @christ])
+      expect(Customer.top_five_customers).to eq([@customer2, @customers[5], @customers[1], @customers[4], @customers[3]])
     end
 
     it "can get numbers of transactions" do
-      expect(@joey.number_of_transactions).to eq(1)
-      expect(@cecelia.number_of_transactions).to eq(1)
-      expect(@mariah.number_of_transactions).to eq(1)
+      expect(@customers[5].number_of_transactions).to eq(5)
+      expect(@customer2.number_of_transactions).to eq(7)
+      expect(@customers[6].number_of_transactions).to eq(0)
+      expect(@customers[0].number_of_transactions).to eq(0)
     end
 
     describe '#top_merchant_customers' do
       it "returns the customers with the highest transaciton count for the merchant" do
-        Transaction.create!(invoice_id: @invoice_4.id, credit_card_number: "4203696133194408", result: "success", created_at: "2012-03-27 14:54:10 UTC", updated_at: "2012-03-27 14:54:10 UTC")
-        Transaction.create!(invoice_id: @invoice_4.id, credit_card_number: "4203696133194408", result: "success", created_at: "2012-03-27 14:54:10 UTC", updated_at: "2012-03-27 14:54:10 UTC")
-        Transaction.create!(invoice_id: @invoice_2.id, credit_card_number: "4203696133194408", result: "success", created_at: "2012-03-27 14:54:10 UTC", updated_at: "2012-03-27 14:54:10 UTC")
-        expect(Customer.top_merchant_customers(@zara.id)).to eq([@donna, @cecelia, @joey])
+        expect(Customer.top_merchant_customers(@merchant)).to eq([@customers[5], @customers[1], @customers[4], @customers[3], @customers[2]])
+        expect(Customer.top_merchant_customers(@merchant2)).to eq([@customer2])
       end
     end
   end
