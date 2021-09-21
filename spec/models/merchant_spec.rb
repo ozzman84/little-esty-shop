@@ -65,4 +65,37 @@ RSpec.describe Merchant do
       end
     end
   end
+
+  describe "top_items" do
+    before :each do
+      @merch = create(:merchant)
+      @items = create_list(:item, 7, merchant: @merch)
+      @customer = create(:customer)
+      @invoices = create_list(:invoice, 5, customer: @customer)
+      @ii_1 = create(:invoice_item, invoice: @invoices[0], item: @items[1], quantity: 2, unit_price: 100)
+      @ii_2 = create(:invoice_item, invoice: @invoices[0], item: @items[2], quantity: 10, unit_price: 200)
+      @ii_3 = create(:invoice_item, invoice: @invoices[1], item: @items[3], quantity: 4, unit_price: 40)
+      @ii_4 = create(:invoice_item, invoice: @invoices[1], item: @items[4], quantity: 12, unit_price: 30)
+      @ii_5 = create(:invoice_item, invoice: @invoices[1], item: @items[5], quantity: 20, unit_price: 90)
+      @ii_6 = create(:invoice_item, invoice: @invoices[2], item: @items[6], quantity: 3, unit_price: 50)
+      @ii_7 = create(:invoice_item, invoice: @invoices[2], item: @items[1], quantity: 6, unit_price: 80)
+      @ii_8 = create(:invoice_item, invoice: @invoices[3], item: @items[2], quantity: 10, unit_price: 75)
+      @ii_9 = create(:invoice_item, invoice: @invoices[3], item: @items[2], quantity: 7, unit_price: 60)
+      @ii_10 = create(:invoice_item, invoice: @invoices[4], item: @items[0], quantity: 1000, unit_price: 800)
+      @trans1 = create(:transaction, invoice: @invoices[0])
+      @trans2 = create(:transaction, invoice: @invoices[1])
+      @trans3 = create(:transaction, invoice: @invoices[2])
+      @trans4 = create(:transaction, invoice: @invoices[3])
+      @trans5 = create(:failed_transaction, invoice: @invoices[3])
+      @trans6 = create(:failed_transaction, invoice: @invoices[4])
+    end
+
+    it "returns top five items per merchant" do
+      expect(@merch.top_items).to eq([@items[2], @items[5], @items[1], @items[4], @items[3]])
+    end
+
+    it "changes the total revenue returned on best day from pennies to dollars" do
+      expect(@merch.top_items.first.pennies_to_dollars).to eq(31.7)
+    end
+  end
 end

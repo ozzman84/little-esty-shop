@@ -33,5 +33,19 @@
         </table>
       </div>
     </div>
+    <div class="col">
+      <div class="p-3 border bg-light" id="top-items"><h3>Top Items</h3>
+        <br>
+        <table class="table table-striped table-sm" >
+          <tbody>
+            <% @merchant.top_items.each do |item| %>
+            <tr id="top-items-<%= item.id %>">
+              <td><%= link_to item.name, merchant_item_path(@merchant, item) %> - <%= number_to_currency(item.pennies_to_dollars) %> in sales</td>
+              <td>Top day for <%= item.name %> was <%= item.best_day.strftime("%m/%d/%y") %></td>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
 </div>
