@@ -4,7 +4,7 @@
       <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Little Esty Shop</a>
       <ul class="navbar-nav px-3">
         <li class="nav-item text-nowrap">
-          <a class="nav-link" href="#">Sign out</a>
+          <a class="nav-link" href="#">Little Esty Shop</a>
         </li>
       </ul>
     </nav>
@@ -114,6 +114,46 @@
           </div>
 
           <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
+          <h2>Top 5 Merchants By Revenue</h2>
+          <div class="table-responsive">
+            <table class="table table-striped table-sm" id="Top-5-table">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Name</th>
+                  <th>Revenue</th>
+                </tr>
+              </thead>
+              <tbody>
+
+                <% @merchants.top_5_by_rev.each do |merchant| %>
+                <tr id="Top-<%= merchant.id %>">
+                  <td><%= merchant.id %></td>
+                  <td><%= link_to merchant.name, "/admin/merchants/#{merchant.id}" %></td>
+                  <td><%= merchant.total_rev %></td>
+                </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </main>
+
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+            <h1 class="h2">Dashboard</h1>
+            <div class="btn-toolbar mb-2 mb-md-0">
+              <div class="btn-group mr-2">
+                <button class="btn btn-sm btn-outline-secondary">Share</button>
+                <button class="btn btn-sm btn-outline-secondary">Export</button>
+              </div>
+              <button class="btn btn-sm btn-outline-secondary dropdown-toggle">
+                <span data-feather="calendar"></span>
+                This week
+              </button>
+            </div>
+          </div>
+
+          <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
           <h2>Enabled Merchants</h2>
           <div class="table-responsive">
             <table class="table table-striped table-sm" id="Enabled-table">
@@ -138,7 +178,7 @@
           </div>
         </main>
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-right pt-3 pb-2 mb-3 border-bottom">
             <h1 class="h2">Dashboard</h1>
             <div class="btn-toolbar mb-2 mb-md-0">
               <div class="btn-group mr-2">
@@ -193,7 +233,7 @@
     </script>
 
     <!-- Graphs -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
     <script>
       var ctx = document.getElementById("myChart");
       var myChart = new Chart(ctx, {
@@ -222,5 +262,5 @@
           }
         }
       });
-    </script>
+    </script> -->
   </body>
