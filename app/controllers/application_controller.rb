@@ -1,9 +1,9 @@
 class ApplicationController < ActionController::Base
-  before_action :name
+  helper_method :name
 
   def name
-   #json = GithubService.new.get_all
-   @repo = Repo.new("json")
+    json = GithubService.new
+    @repo ||= Repo.new(json.get_all)
   end
 
   def welcome
