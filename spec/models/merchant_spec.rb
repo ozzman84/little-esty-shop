@@ -74,12 +74,12 @@ RSpec.describe Merchant do
       end
 
       it 'returns Merchant\'s best day' do
-        expect(@merch[0].best_day).to eq("2012-03-26 09:54:09")
+        expect(@merch[0].best_day.last.top_date).to eq('2012-03-26 09:54:09')
       end
     end
   end
 
-  describe "top_items" do
+  describe 'top_items' do
     before :each do
       @merch = create(:merchant)
       @items = create_list(:item, 7, merchant: @merch)

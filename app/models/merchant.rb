@@ -34,11 +34,10 @@ class Merchant < ApplicationRecord
   end
 
   def best_day
-    joins(invoices: :transactions)
-    .where('transactions.result = ?', 1)
-    .select('invoices.*, SUM(invoice_items.unit_price*invoice_items.quantity) AS total_rev')
-    .group(:updated_at)
-    .order(updated_at: :desc)
+    items.joins(:invoices)
+    .select('invoices.*, SUM(invoice_items.unit_price*invoice_items.quantity) AS total_rev, invoices.updated_at AS top_date')
+    .group('invoices.id')
+    .order('invoices.updated_at DESC')
     .limit(1)
   end
 end

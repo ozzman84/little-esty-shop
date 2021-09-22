@@ -108,7 +108,8 @@ describe 'Admin Merchants Index' do
         within("#Top-#{m.id}") do
           expect(page).to have_content(m.name)
           expect(page).to have_link(m.name)
-          expect(page).to have_content(m.total_rev)
+          expect(page).to have_content("$#{m.total_rev / 100.0}")
+          expect(page).to have_content(m.best_day.last.top_date)
         end
       end
     end
