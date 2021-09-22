@@ -23,8 +23,10 @@
         <% cache :api, expires_in: 2.minutes do %>
           <% repo = name %>
           Repository Name: <%= repo.name %> | |
-          Merged PR Count: <%= repo.pulls %><br>
-          Team Usernames: <%= repo.contributors.to_sentence %><br>
+          Merged PR Count: <%= repo.pulls %> | | 
+          Team Usernames & Commits: <% repo.contributors.each do |k, v| %>
+                                      <%= k %> - <%= v %> | |
+                                    <% end %></br>
         <% end %>
 
       </div>

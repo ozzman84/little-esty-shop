@@ -5,5 +5,6 @@ class Repo
     @name = repo_data[:name][:name].split("-").join(" ").capitalize
     @pulls = repo_data[:pulls].count
     @contributors = repo_data[:contributors]
+    @commits = repo_data[:commits]
   end
 end
