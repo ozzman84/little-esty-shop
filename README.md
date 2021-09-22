@@ -28,11 +28,41 @@ This project requires Ruby 2.7.2.
     * `bundle`
     * `rails db:create`
 * Run the test suite with `bundle exec rspec`.
+* Run `rails dev:cache` for API caching.
 * Run your development server with `rails s` to see the app in action.
 
 ## Phases
 
 1. [Database Setup](./doc/db_setup.md)
 1. [User Stories](./doc/user_stories.md)
-1. [Extensions](./doc/extensions.md)
 1. [Evaluation](./doc/evaluation.md)
+
+## Live App
+[Link to live app. deployment](https://little-esty-shop-denver.herokuapp.com/merchant/1/dashboard)
+
+## Database Schema
+
+## Schema
+
+
+## Technologies Used
+
+- Atom
+- Git
+- GitHub
+- GitHub Projects
+- Ruby
+- Rails
+- RSpec
+- SimpleCov
+- Slack
+- Zoom
+- Orderly
+- Postico
+
+## Contributors
+
+- [Isika Powers](https://github.com/Isikapowers/)
+- [Ida Olson](https://github.com/idaolson)
+- [Mike "Ozzie" Osmonson](https://github.com/ozzman84)
+- [Rowan DeLong](https://github.com/RowanDW)
