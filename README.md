@@ -49,17 +49,17 @@ This project requires Ruby 2.7.2.
 
 ## Tools Used
 
-| Development    | Testing |  Gems                 |
-| :-------------:| :------:| :--------------------:|
-| Ruby 2.7.2     | Rspec   | SimpleCov             |
-| Rails 5.2.6    |         | Pry                   |
-| HTML5          |         | Capybara              |
-| Bootstrap      |         | ShouldaMatcher        |
-| Atom           |         | Launchy               |
-| Git            |         | Orderly               |
-| Github         |         | Factorybot/Faker      |
-| Github Project |         |                       |
-| Postico.       |         |                       |
+| Development    |  Testing             |
+| :-------------:| :-------------------:|
+| Ruby 2.7.2     | SimpleCov            |
+| Rails 5.2.6    | Pry                  |
+| HTML5          | Capybara             |
+| Bootstrap      | ShouldaMatcher       |
+| Atom           | Launchy              |
+| Git            | Orderly              |
+| Github         | Factorybot/Faker     |
+| Github Project | Faraday              |
+| Postico        | RSpec                |
 
 
 ## Contributors
