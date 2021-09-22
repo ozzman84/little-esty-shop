@@ -132,7 +132,7 @@
                   <td><%= merchant.id %></td>
                   <td><%= link_to merchant.name, "/admin/merchants/#{merchant.id}" %></td>
                   <td><%= merchant.best_day.last.top_date %></td>
-                  <td><%= "$#{merchant.total_rev / 100.0}" %></td>
+                  <td><%= "#{number_to_currency(merchant.total_rev / 100.0)}" %></td>
                 </tr>
                 <% end %>
               </tbody>
