@@ -1,8 +1,9 @@
 class Repo
-  attr_reader :name, :pulls
+  attr_reader :name, :pulls, :contributors
 
   def initialize(repo_data)
-    @name =  "little esty shop"#repo_data[:name][:name].split("-").join(" ").capitalize
-    @pulls =  35 #repo_data[:pulls].count
+    @name = repo_data[:name][:name].split("-").join(" ").capitalize
+    @pulls = repo_data[:pulls].count
+    @contributors = repo_data[:contributors]
   end
 end
