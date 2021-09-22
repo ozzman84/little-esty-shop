@@ -27,9 +27,6 @@ class GithubService
     user_hash
   end
 
-  def commits
-  end
-
   def get_all
     result = {name: name, pulls: pulls, contributors: contributors}
   end
