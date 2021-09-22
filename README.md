@@ -42,6 +42,8 @@ This project requires Ruby 2.7.2.
 
 ## Database Schema
 
+![Schema](https://files.slack.com/files-pri/T029P2S9M-F02F4T78NFQ/image.png)
+
 ## Schema
 
 
