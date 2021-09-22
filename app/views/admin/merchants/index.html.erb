@@ -121,6 +121,7 @@
                 <tr>
                   <th>ID</th>
                   <th>Name</th>
+                  <th>Top Selling Date</th>
                   <th>Revenue</th>
                 </tr>
               </thead>
@@ -130,7 +131,8 @@
                 <tr id="Top-<%= merchant.id %>">
                   <td><%= merchant.id %></td>
                   <td><%= link_to merchant.name, "/admin/merchants/#{merchant.id}" %></td>
-                  <td><%= merchant.total_rev %></td>
+                  <td><%= merchant.best_day.last.top_date %></td>
+                  <td><%= "$#{merchant.total_rev / 100.0}" %></td>
                 </tr>
                 <% end %>
               </tbody>

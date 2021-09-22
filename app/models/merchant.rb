@@ -32,4 +32,12 @@ class Merchant < ApplicationRecord
       .order('total DESC')
       .limit(5)
   end
+
+  def best_day
+    items.joins(:invoices)
+    .select('invoices.*, SUM(invoice_items.unit_price*invoice_items.quantity) AS total_rev, invoices.updated_at AS top_date')
+    .group('invoices.id')
+    .order('invoices.updated_at DESC')
+    .limit(1)
+  end
 end
