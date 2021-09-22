@@ -3,7 +3,10 @@ require 'spec_helper'
 require 'support/factory_bot'
 ENV['RAILS_ENV'] ||= 'test'
 require "simplecov"
-SimpleCov.start
+SimpleCov.start do
+  add_filter "app/controllers/application_controller.rb"
+  add_filter 'app/services/github_service.rb'
+end
 
 require File.expand_path('../config/environment', __dir__)
 # Prevent database truncation if the environment is production
