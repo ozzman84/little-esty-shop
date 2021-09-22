@@ -13,7 +13,15 @@
 # it.
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
+TestApi = Struct.new(:name, :pulls, :contributors)
+
 RSpec.configure do |config|
+  config.before :each do
+    fake_api = TestApi.new("Little Esty Shop", 35, %w(Isikapowers idaolson ozzman84 RowanDW))
+    allow_any_instance_of(ApplicationController).to receive(:name).and_return(fake_api)
+  end
+
+
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
   # assertions if you prefer.
