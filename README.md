@@ -18,6 +18,11 @@
 - must include a thorough README to describe the project
 - must deploy completed code to Heroku
 
+## Database Schema
+
+![Schema](https://user-images.githubusercontent.com/72399033/134418403-99e1a24c-11fb-442c-a682-01e86095ba7d.png)
+
+
 ## Setup
 
 This project requires Ruby 2.7.2.
@@ -40,11 +45,6 @@ This project requires Ruby 2.7.2.
 ## Live App
 [Link to live app. deployment](https://little-esty-shop-denver.herokuapp.com)
 
-## Database Schema
-
-![Schema](https://user-images.githubusercontent.com/72399033/134418403-99e1a24c-11fb-442c-a682-01e86095ba7d.png)
-
-## Schema
 
 
 ## Tools Used
