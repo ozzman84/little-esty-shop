@@ -5,10 +5,6 @@ class Merchant < ApplicationRecord
 
   enum status: [:disabled, :enabled]
 
-  def all_invoices
-    Invoice.joins(:items).where('items.merchant_id = ?', id).uniq
-  end
-
   def ready_to_ship
     items.select(:name, 'invoice_items.invoice_id', 'invoice_items.created_at AS invoice_created')
          .joins(:invoice_items)

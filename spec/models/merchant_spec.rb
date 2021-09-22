@@ -53,12 +53,6 @@ RSpec.describe Merchant do
       @transaction8 = create(:failed_transaction, invoice: @invoice4)
     end
 
-    describe '.all_invoices' do
-      it "returns all invoices for a merchant" do
-        expect(@merch[0].all_invoices).to eq([@invoice, @invoice1, @invoice8])
-      end
-    end
-
     describe '.ready_to_ship' do
       it "returns all items for a merchant that are not shipped" do
         expect(@merch[0].ready_to_ship.size).to eq(4)
