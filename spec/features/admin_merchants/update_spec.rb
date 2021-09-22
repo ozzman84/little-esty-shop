@@ -22,4 +22,17 @@ describe 'Admin Merchants Update' do
     expect(current_path).to eq("/admin/merchants/#{@merchant1.id}")
     expect(page).to have_content('Jason Momoa')
   end
+
+  it 'returns flash message when not updated' do
+    visit "/admin/merchants/#{@merchant1.id}"
+
+    click_link 'Update'
+
+    expect(current_path).to eq("/admin/merchants/#{@merchant1.id}/edit")
+
+    fill_in 'Name', with: ''
+    click_button 'Submit'
+
+    expect(page).to have_content('Merchant Not Updated: Re-enter information')
+  end
 end

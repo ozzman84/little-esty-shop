@@ -21,7 +21,7 @@
         flash[:success] = 'Merchant Updated successfully'
       else
         redirect_to "/admin/merchants/#{@merchant.id}/edit"
-        flash[:danger] = 'Merchant Not Updated: re-enter information'
+        flash[:danger] = 'Merchant Not Updated: Re-enter information'
       end
     end
 
@@ -35,8 +35,8 @@
         flash[:success] = 'Merchant Updated successfully'
         redirect_to '/admin/merchants'
       else
-        redirect_to new
-        flash[:danger] = 'Merchant Not Created: re-enter information'
+        redirect_to admin_merchants_url
+        flash[:danger] = 'Merchant Not Created: Re-enter information'
       end
     end
 

@@ -20,11 +20,24 @@ describe 'Admin Merchant' do
       @merchant = Merchant.last
 
       expect(current_path).to eq(admin_merchants_path)
+      expect(page).to have_content('Merchant Updated successfully')
 
       within("##{@merchant.id}") do
         expect(page).to have_content('Oz World')
         expect(@merchant.status).to eq('disabled')
       end
+    end
+
+    it 'can create a new Merchant' do
+      visit admin_merchants_url
+
+      within("#create-merchant") do
+        click_link 'Create Merchant'
+      end
+
+      click_on 'Create Merchant'
+
+      expect(page).to have_content('Merchant Not Created: Re-enter information')
     end
   end
 end
