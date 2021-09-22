@@ -45,10 +45,10 @@ This project requires Ruby 2.7.2.
 ## Schema
 
 
-## Technologies Used
+## Tools Used
 
 | Development | Testing |  Gems     |
-| ------------| --------------------|
+| :----------:| :------:| :--------:|
 | Ruby 2.7.2  | Rspec   | SimpleCov |
 | Rails 5.2.6 |         | Pry.      |
 
