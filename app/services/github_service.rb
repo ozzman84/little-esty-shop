@@ -15,11 +15,19 @@ class GithubService
   end
 
   def contributors
+    user_hash = {}
     data = get_data("/contributors")
-    all_usernames = data.map do |hash|
-      hash[:login]
+    data.each do |hash|
+      user_hash[hash[:login]] = hash[:contributions]
     end
-    all_usernames - ["BrianZanti", "timomitchel", "scottalexandra", "jamisonordway"]
+    user_hash.delete("BrianZanti")
+    user_hash.delete("timomitchel")
+    user_hash.delete("scottalexandra")
+    user_hash.delete("jamisonordway")
+    user_hash
+  end
+
+  def commits
   end
 
   def get_all
