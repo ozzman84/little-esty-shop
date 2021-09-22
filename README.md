@@ -41,7 +41,7 @@ This project requires Ruby 2.7.2.
 1. [Evaluation](./doc/evaluation.md)
 
 ## Live App
-[Link to live app. deployment](https://little-esty-shop-denver.herokuapp.com)
+[Link to Heroku deployment](https://little-esty-shop-denver.herokuapp.com)
 
 ## Tools Used
 
@@ -56,7 +56,7 @@ This project requires Ruby 2.7.2.
 | Github         | Factorybot/Faker     |
 | Github Project | Faraday              |
 | Postico        | RSpec                |
-
+| Heroku         |                      |
 
 ## Contributors
 
