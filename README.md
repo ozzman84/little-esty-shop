@@ -38,7 +38,7 @@ This project requires Ruby 2.7.2.
 1. [Evaluation](./doc/evaluation.md)
 
 ## Live App
-[Link to live app. deployment](https://little-esty-shop-denver.herokuapp.com/merchant/1/dashboard)
+[Link to live app. deployment](https://little-esty-shop-denver.herokuapp.com)
 
 ## Database Schema
 
@@ -46,6 +46,11 @@ This project requires Ruby 2.7.2.
 
 
 ## Technologies Used
+
+| Development | Testing |  Gems     |
+| ------------| --------------------|
+| Ruby 2.7.2  | Rspec   | SimpleCov |
+| Rails 5.2.6 |         | Pry.      |
 
 - Atom
 - Git
