@@ -1,5 +1,5 @@
 class Repo
-  attr_reader :name, :pulls, :contributors
+  attr_reader :name, :pulls, :contributors, :commits
 
   def initialize(repo_data)
     @name = repo_data[:name][:name].split("-").join(" ").capitalize

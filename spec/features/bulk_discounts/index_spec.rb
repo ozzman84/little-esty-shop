@@ -10,7 +10,7 @@ RSpec.describe 'Merchant BulkDiscount Index' do
   describe 'as a Merchant' do
     it 'shows all BulkDiscounts by Merchant' do
       visit merchant_bulk_discounts_path(@merch)
-
+      save_and_open_page
       @merch.bulk_discounts.each do |discount|
         expect(page).to have_content(discount.percent_discount)
         expect(page).to have_content(discount.threshold)
