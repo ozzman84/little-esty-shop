@@ -2,6 +2,6 @@
   <%= f.label :percent_discount %><br/>
   <%= f.number_field :percent_discount %><br/>
   <%= f.label :threshold %><br/>
-  <%= f.number_field :threshold %><br/><br/>
+  <%= f.number_field :threshold, value: nil, in: 1...100 %><br/><br/>
   <%= f.submit 'Update Discount'%>
 <% end %>

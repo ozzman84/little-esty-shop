@@ -37,28 +37,43 @@ RSpec.describe InvoiceItem do
     @invoice_item_9 = InvoiceItem.create!(item: @dress, invoice: @invoice_5, quantity: 5, unit_price: 2900, status: "packaged", created_at: "2012-03-27 14:53:59 UTC", updated_at: "2012-03-27 14:53:59 UTC")
     @invoice_item_10 = InvoiceItem.create!(item: @skirt, invoice: @invoice_6, quantity: 3, unit_price: 2500, status: "packaged", created_at: "2012-03-27 14:53:59 UTC", updated_at: "2012-03-27 14:53:59 UTC")
 
-    Transaction.create!(invoice_id: @invoice_1.id, credit_card_number: "4654405418249632", result: "success", created_at: "2012-03-27 14:54:09 UTC", updated_at: "2012-03-27 14:54:09 UTC")
-    Transaction.create!(invoice_id: @invoice_2.id, credit_card_number: "4580251236515201", result: "success", created_at: "2012-03-27 14:54:09 UTC", updated_at: "2012-03-27 14:54:09 UTC")
-    Transaction.create!(invoice_id: @invoice_3.id, credit_card_number: "4354495077693036", result: "success", created_at: "2012-03-27 14:54:10 UTC", updated_at: "2012-03-27 14:54:10 UTC")
-    Transaction.create!(invoice_id: @invoice_4.id, credit_card_number: "4515551623735607", result: "success", created_at: "2012-03-27 14:54:10 UTC", updated_at: "2012-03-27 14:54:10 UTC")
-    Transaction.create!(invoice_id: @invoice_5.id, credit_card_number: "4844518708741275", result: "success", created_at: "2012-03-27 14:54:10 UTC", updated_at: "2012-03-27 14:54:10 UTC")
-    Transaction.create!(invoice_id: @invoice_6.id, credit_card_number: "4203696133194408", result: "success", created_at: "2012-03-27 14:54:10 UTC", updated_at: "2012-03-27 14:54:10 UTC")
+    Transaction.create!(invoice_id: @invoice_1.id, credit_card_number: '4654405418249632', result: 'success', created_at: '2012-03-27 14:54:09 UTC', updated_at: '2012-03-27 14:54:09 UTC')
+    Transaction.create!(invoice_id: @invoice_2.id, credit_card_number: '4580251236515201', result: 'success', created_at: '2012-03-27 14:54:09 UTC', updated_at: '2012-03-27 14:54:09 UTC')
+    Transaction.create!(invoice_id: @invoice_3.id, credit_card_number: '4354495077693036', result: 'success', created_at: '2012-03-27 14:54:10 UTC', updated_at: '2012-03-27 14:54:10 UTC')
+    Transaction.create!(invoice_id: @invoice_4.id, credit_card_number: '4515551623735607', result: 'success', created_at: '2012-03-27 14:54:10 UTC', updated_at: '2012-03-27 14:54:10 UTC')
+    Transaction.create!(invoice_id: @invoice_5.id, credit_card_number: '4844518708741275', result: 'success', created_at: '2012-03-27 14:54:10 UTC', updated_at: '2012-03-27 14:54:10 UTC')
+    Transaction.create!(invoice_id: @invoice_6.id, credit_card_number: '4203696133194408', result: 'success', created_at: '2012-03-27 14:54:10 UTC', updated_at: '2012-03-27 14:54:10 UTC')
 
-    @merch = create(:merchant)
+    @merch = create_list(:merchant, 7)
     @merch2 = create(:merchant)
-    @item1 = create(:item, merchant_id: @merch.id)
-    @item2 = create(:item, merchant_id: @merch.id)
+    @m5discount = BulkDiscount.create(merchant_id: @merch[5].id, threshold: 15, percent_discount: 25)
+    @m6discount = BulkDiscount.create(merchant_id: @merch[6].id, threshold: 11, percent_discount: 20)
+    @m6discount1 = BulkDiscount.create(merchant_id: @merch[6].id, threshold: 25, percent_discount: 30)
+    @item1 = create(:item, merchant_id: @merch[0].id)
+    @item2 = create(:item, merchant_id: @merch[0].id)
     @item3 = create(:item, merchant_id: @merch2.id)
+    @item8 = create(:item, merchant: @merch[5])
+    @item9 = create(:item, merchant: @merch[6])
+    @item10 = create(:item, merchant: @merch[5])
+    @item11 = create(:item, merchant: @merch[6])
+    @item12 = create(:item, merchant: @merch[6])
     @cust = create(:customer)
     @invoice1 = create(:invoice, customer_id: @cust.id)
+    @invoice8 = create(:invoice, updated_at: '2012-03-25 09:54:09')
     @inv_item1 = create(:invoice_item, unit_price: @item1.unit_price, invoice_id: @invoice1.id, item_id: @item1.id)
     @inv_item2 = create(:invoice_item, unit_price: @item2.unit_price, invoice_id: @invoice1.id, item_id: @item2.id)
     @inv_item3 = create(:invoice_item, unit_price: @item2.unit_price, invoice_id: @invoice1.id, item_id: @item3.id)
+    @inv_item14 = create(:invoice_item, invoice: @invoice8, item: @item8, unit_price: 3000, quantity: 25)
+    @inv_item15 = create(:invoice_item, invoice: @invoice8, item: @item9, unit_price: 3000, quantity: 10)
+    @inv_item16 = create(:invoice_item, invoice: @invoice8, item: @item10, unit_price: 3000, quantity: 29)
+    @inv_item17 = create(:invoice_item, invoice: @invoice8, item: @item11, unit_price: 3000, quantity: 27)
+    @inv_item18 = create(:invoice_item, invoice: @invoice8, item: @item12, unit_price: 3000, quantity: 34)
   end
 
   describe 'relationships' do
     it { should belong_to(:item) }
     it { should belong_to(:invoice) }
+    # it { should have_one(:merchant).through :item }
   end
 
   describe 'validations' do
@@ -70,16 +85,16 @@ RSpec.describe InvoiceItem do
   end
 
 
-  describe ".incomplete_invoices" do
-    it "can display incomplete invoices with items that have not been shipped" do
-      expect(InvoiceItem.incomplete_invoices).to eq([@invoice_3, @invoice_6, @invoice_5, @invoice_1, @invoice1])
+  describe '.incomplete_invoices' do
+    it 'can display incomplete invoices with items that have not been shipped' do
+      expect(InvoiceItem.incomplete_invoices).to eq([@invoice_3, @invoice_6, @invoice_5, @invoice_1, @invoice1, @invoice8])
     end
   end
 
   describe 'class methods' do
     describe '#on_merchant_invoice' do
       it 'returns all invoice items with given invoice and merchant id' do
-        expect(InvoiceItem.on_merchant_invoice(@invoice1.id, @merch.id)).to eq([@inv_item1, @inv_item2])
+        expect(InvoiceItem.on_merchant_invoice(@invoice1.id, @merch[0].id)).to eq([@inv_item1, @inv_item2])
         expect(InvoiceItem.on_merchant_invoice(@invoice1.id, @merch2.id)).to eq([@inv_item3])
       end
     end
@@ -93,14 +108,27 @@ RSpec.describe InvoiceItem do
         @inv_item2.update(unit_price:  25)
         @inv_item3.update(unit_price:  75)
 
-        expect(InvoiceItem.total_rev).to eq('595.00')
+        expect(InvoiceItem.total_rev).to eq("4345.00")
+      end
+    end
+
+    describe '#total_net_rev' do
+      it 'returns the total net revenue' do
+        @inv_item1.update(quantity: 2)
+        @inv_item2.update(quantity: 2)
+        @inv_item3.update(quantity: 2)
+        @inv_item1.update(unit_price:  50)
+        @inv_item2.update(unit_price:  25)
+        @inv_item3.update(unit_price:  75)
+
+        expect(InvoiceItem.total_net_rev).to eq(3390)
       end
     end
   end
 
 
   describe 'instance methods' do
-    describe '.get_item' do
+    describe '#get_item' do
       it 'returns the item on the invoice' do
         expect(@inv_item1.get_item).to eq(@item1)
         expect(@inv_item2.get_item).to eq(@item2)
@@ -108,12 +136,23 @@ RSpec.describe InvoiceItem do
       end
     end
 
-    describe '.price_dollars' do
-      it "return the unit price * quantity formatted in dollars" do
+    describe '#price_dollars' do
+      it 'return the unit price * quantity formatted in dollars' do
         @inv_item1.unit_price = 3330
         expect(@inv_item1.price_dollars).to eq('33.30')
         expect(@inv_item1.price_dollars(2)).to eq('66.60')
       end
+    end
+  end
+
+  describe 'net invoice item discount revenue' do
+    it 'returns the adjusted revenue' do
+      expect(@inv_item15.adjusted_rev).to eq(300)
+      expect(@inv_item18.adjusted_rev).to eq(714)
+    end
+
+    it 'returns the discount percent_discount' do
+      expect(@inv_item18.select_discount.percent_discount).to eq(30)
     end
   end
 end

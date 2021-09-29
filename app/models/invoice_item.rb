@@ -3,11 +3,14 @@ class InvoiceItem < ApplicationRecord
 
   belongs_to :item
   belongs_to :invoice
+  # has_one :merchant
 
   enum status: [:pending, :packaged, :shipped]
 
+  scope :total_net_rev, -> { sum(&:adjusted_rev) }
+
   def self.incomplete_invoices
-    invoice_ids = InvoiceItem.where("status = 0 OR status = 1").pluck(:invoice_id)
+    invoice_ids = InvoiceItem.where('status = 0 OR status = 1').pluck(:invoice_id)
     Invoice.order(created_at: :asc).find(invoice_ids)
   end
 
@@ -18,8 +21,8 @@ class InvoiceItem < ApplicationRecord
   end
 
   def self.total_rev
-    pennies = self.sum("unit_price * quantity")
-    '%.2f' % (pennies / 100.0)
+    pennies = self.sum('unit_price * quantity')
+    '%.2f' % (pennies / 100.00)
   end
 
   def get_item
@@ -27,6 +30,20 @@ class InvoiceItem < ApplicationRecord
   end
 
   def price_dollars(mult = 1)
-    '%.2f' % (unit_price * mult / 100.0)
+    '%.2f' % (unit_price * mult / 100.00)
+  end
+
+  def select_discount
+    item.merchant.bulk_discounts
+    .where('threshold <= ?', quantity)
+    .last
+  end
+
+  def adjusted_rev
+    if select_discount.nil?
+      price_dollars(quantity).to_i
+    else
+      price_dollars(quantity).to_i * ((100 - select_discount.percent_discount) / 100.00)
+    end
   end
 end

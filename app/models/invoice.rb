@@ -6,10 +6,10 @@ class Invoice < ApplicationRecord
 
   validates :status, :customer_id, :created_at, :updated_at, presence: true
 
-  enum status: [:cancelled, "in progress", :completed]
+  enum status: [:cancelled, 'in progress', :completed]
 
   def total_revenue
-    "%.2f" % (invoice_items.sum("unit_price * quantity")/100.0)
+    invoice_items.sum('unit_price * quantity') / 100.0
   end
 
   def customer_name

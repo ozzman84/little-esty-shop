@@ -2,6 +2,8 @@ class Item < ApplicationRecord
   belongs_to :merchant
   has_many :invoice_items
   has_many :invoices, through: :invoice_items
+  # has_many :bulk_discounts, through: :merchant
+
   validates :name, :description, :unit_price, presence: true
   enum status: [:disabled, :enabled]
 
@@ -10,7 +12,7 @@ class Item < ApplicationRecord
   end
 
   def unit_price_dollars
-    "%.2f" % (unit_price / 100.0)
+    '%.2f' % (unit_price / 100.0)
   end
 
   def pennies_to_dollars
