@@ -16,6 +16,12 @@
 <h5>Status: <%= @invoice.status %></h5><br>
 <h5>Created at: <%= @invoice.created_at.strftime("%A, %B %d, %Y") %></h5>
 <h5>Update at: <%= @invoice.updated_at.strftime("%A, %B %d, %Y") %></h5><br>
+<br>
+<span style="font-size: 20px;"><b style="font-size: 22px;">Total Gross Revenue: </b> $<%= @invoice_items.total_rev %></span>
+<br>
+<span style="font-size: 20px;"><b style="font-size: 22px;">Total Net Revenue: </b> $<%= @invoice_items.total_net_rev %></span>
+<br>
+
 
 <p>----------------------------------------------------</p>
 

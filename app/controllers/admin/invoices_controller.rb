@@ -5,6 +5,7 @@ class Admin::InvoicesController < ApplicationController
 
   def show
     @invoice = Invoice.find(params[:id])
+    @invoice_items = @invoice.invoice_items
   end
 
   def update
@@ -12,7 +13,7 @@ class Admin::InvoicesController < ApplicationController
     @invoice.update(status: params[:status])
 
     redirect_to admin_invoice_path(@invoice)
-    
+
     flash[:notice] = "Invoice status successfully updated"
   end
 

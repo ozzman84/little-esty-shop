@@ -76,7 +76,6 @@ describe 'Merchant invoices show page' do
   describe 'total & discounted revenue' do
     it 'returns the total revenue' do
       visit merchant_invoice_path(@merch.id, @invoice1.id)
-      save_and_open_page
       expect(page).to have_content(0)
       expect(page).to have_content(0)
     end
