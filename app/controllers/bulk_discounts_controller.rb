@@ -2,6 +2,9 @@ class BulkDiscountsController < ApplicationController
   def index
     @bulk_discounts = Merchant.find(params[:merchant_id]).bulk_discounts
     @merchant = Merchant.find(params[:merchant_id])
+    @holidays = holiday[0..2].map do |h|
+      Holiday.new(h)
+    end
   end
 
   def show
@@ -52,5 +55,9 @@ class BulkDiscountsController < ApplicationController
 
   def discount_params
     params.require(:bulk_discount).permit(:percent_discount, :threshold)
+  end
+
+  def holiday
+    @holiday ||= NagerService.new.holidays
   end
 end

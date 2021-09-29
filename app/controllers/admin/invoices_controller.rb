@@ -16,5 +16,4 @@ class Admin::InvoicesController < ApplicationController
 
     flash[:notice] = "Invoice status successfully updated"
   end
-
 end
