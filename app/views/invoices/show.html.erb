@@ -6,7 +6,9 @@
   <br>
   <span style="font-size: 20px;"><b style="font-size: 22px;">Created on: </b> <%= @invoice.created_at.strftime("%A, %B %d, %Y") %></span>
   <br>
-  <span style="font-size: 20px;"><b style="font-size: 22px;">Total Revenue: </b> $<%= @invoice_items.total_rev %></span>
+  <span style="font-size: 20px;"><b style="font-size: 22px;">Total Gross Revenue: </b> $<%= @invoice_items.total_rev %></span>
+  <br>
+  <span style="font-size: 20px;"><b style="font-size: 22px;">Total Net Revenue: </b> $<%= @invoice_items.total_net_rev %></span>
   <br>
   <span style="font-size: 20px;"><b style="font-size: 22px;">Customer: </b> <%= @invoice.customer_name %></span>
   <br>
@@ -19,23 +21,29 @@
       <tr>
         <th scope="col">Item</th>
         <th scope="col">Quantity</th>
+        <th scope="col">Discount</th>
         <th scope="col">Price</th>
         <th scope="col">Status</th>
       </tr>
     </thead>
     <tbody>
       <% @invoice_items.each do |inv| %>
-      <tr id="invoice-item<%= inv.id %>">
-        <td><%= inv.get_item.name %></td>
-        <td><%= inv.quantity %></td>
-        <td>$<%= inv.price_dollars(inv.quantity) %></td>
-        <td><%= form_with model: [@merchant, inv], local: true do |f| %>
-              <%= f.hidden_field :invoice_id, value: @invoice.id %>
-              <%= f.select :status, [:pending, :packaged, :shipped], selected: inv.status %>
-              <%= f.submit "Update Status"%>
+        <tr id="invoice-item<%= inv.id %>">
+          <td><%= inv.get_item.name %></td>
+          <td><%= inv.quantity %></td>
+            <% if inv.select_discount %>
+              <td><%= link_to "#{inv.select_discount.percent_discount}%", merchant_bulk_discount_path(@merchant.id, inv.select_discount) %></td>
+            <% else %>
+              <td><%= '0%' %></td>
             <% end %>
-        </td>
-      </tr>
+          <td>$<%= inv.price_dollars(inv.quantity) %></td>
+          <td><%= form_with model: [@merchant, inv], local: true do |f| %>
+                <%= f.hidden_field :invoice_id, value: @invoice.id %>
+                <%= f.select :status, [:pending, :packaged, :shipped], selected: inv.status %>
+                <%= f.submit "Update Status"%>
+              <% end %>
+          </td>
+        </tr>
       <% end %>
     </tbody>
   </table>

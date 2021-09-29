@@ -2,6 +2,7 @@ class Merchant < ApplicationRecord
   has_many :bulk_discounts
   has_many :items, dependent: :destroy
   has_many :invoices, through: :items
+  has_one :invoice_item, through: :items
   validates :name, presence: true
 
   enum status: [:disabled, :enabled]
@@ -23,7 +24,8 @@ class Merchant < ApplicationRecord
   end
 
   def top_items
-    items.joins( invoices: :transactions ).where(transactions: {result: 1})
+    items.joins( invoices: :transactions )
+      .where(transactions: {result: 1})
       .group(:id)
       .select('items.*, SUM(invoice_items.quantity * invoice_items.unit_price) AS total')
       .order('total DESC')

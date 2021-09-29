@@ -31,7 +31,7 @@ describe 'BulkDiscount Show Page' do
       expect(page).to have_content('Bulk Discount updated successfully!')
     end
 
-    it 'has an Edit button' do
+    it 'flash message shows when not filled in correctly' do
       visit merchant_bulk_discount_path(@merch, @discount)
 
       click_link('Edit')
